@@ -1,2 +1,0 @@
-# sevens
-android game

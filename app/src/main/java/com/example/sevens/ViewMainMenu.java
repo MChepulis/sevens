@@ -16,6 +16,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -49,7 +50,7 @@ public class ViewMainMenu extends View {
     private static final int UPDATE_TIME_MS = 30;
 
     ActivityMain	m_app;
-    MenuRefreshHandler   m_handler;
+    //MenuRefreshHandler   m_handler;
     boolean			m_isActive;
 
     private int m_scrW, m_scrH;
@@ -61,13 +62,11 @@ public class ViewMainMenu extends View {
     {
         super(app);
         m_app = app;
-        m_handler 	= new MenuRefreshHandler(this);
+        //m_handler 	= new MenuRefreshHandler(this);
         m_isActive 	= false;
         setOnTouchListener(app);
-        /*
-        System.out.println(R.id.main_btn_start);
-        Button start = (Button)findViewById(R.id.main_btn_start);
-        System.out.println(start);  /// он не смог найти!!!!
+
+        Button start = (Button) m_app.findViewById(R.id.main_btn_start);
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,14 +75,14 @@ public class ViewMainMenu extends View {
             }
         });
 
-        Button goto_Logo = (Button)findViewById(R.id.main_btn_toLogo);
+        Button goto_Logo = (Button) m_app.findViewById(R.id.main_btn_toLogo);
         goto_Logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("goto_Logo Pressed");
                 m_app.setView(ActivityMain.VIEW_INTRO);
             }
-        });*/
+        });
 
 
 
@@ -92,7 +91,7 @@ public class ViewMainMenu extends View {
     public void start()
     {
         m_isActive 	= true;
-        m_handler.sleep(UPDATE_TIME_MS);
+        //m_handler.sleep(UPDATE_TIME_MS);
     }
     public void stop()
     {
@@ -111,8 +110,9 @@ public class ViewMainMenu extends View {
         if (!m_isActive)
             return;
         // send next update to game
-        if (m_isActive)
-            m_handler.sleep(UPDATE_TIME_MS);
+        if (m_isActive) {
+            //m_handler.sleep(UPDATE_TIME_MS);
+        }
     }
 
     public boolean performClick()
@@ -127,5 +127,26 @@ public class ViewMainMenu extends View {
         System.out.println("MainMenu onDraw");
 
     }
+
+    // обработка системной кнопки "Назад" - начало
+    private long backPressedTime;
+    private long backDoublePressedInterval = 2000;
+    private Toast backToast;
+    public void onBackPressed() {
+        if(backPressedTime + backDoublePressedInterval > System.currentTimeMillis())
+        {
+            m_app.close();
+            backToast.cancel();
+            return;
+        }
+        else
+        {
+            backToast = Toast.makeText(m_app.getBaseContext(), R.string.tap_again_to_exit, Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
+    }
+
+    // обработка системной кнопки "Назад" - конец
 }
 
