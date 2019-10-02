@@ -12,17 +12,18 @@ import android.graphics.Paint.Align;
 
 import android.util.Log;
 import android.view.View;
-
+import android.widget.Button;
+import android.widget.Toast;
 
 
 //****************************************************************
 //class RefreshHandler
 //****************************************************************
-class RefreshHandler extends Handler 
+class GameRefreshHandler extends Handler
 {
 	ViewGame	m_viewGame;
 	
-	public RefreshHandler(ViewGame v)
+	public GameRefreshHandler(ViewGame v)
 	{
 		m_viewGame = v;
 	}
@@ -43,9 +44,29 @@ class RefreshHandler extends Handler
 public class ViewGame extends View
 {
 
+	ActivityMain	m_app;
+	//GameRefreshHandler   m_handler;
+	boolean			m_isActive;
+
 	public ViewGame(ActivityMain app)
 	{
 		super(app);
+		m_app = app;
+		//m_handler 	= new MenuRefreshHandler(this);
+		m_isActive 	= false;
+		setOnTouchListener(app);
+
+		Button back = (Button) m_app.findViewById(R.id.game_btn_back);
+		back.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				System.out.println("Game backPressed");
+				close();
+				//m_app.setView(ActivityMain.VIEW_MAIN_MENU);
+			}
+		});
+
+
 
 
 	}
@@ -65,8 +86,6 @@ public class ViewGame extends View
 	{	}
 	public void onDestroy()
 	{	}
-	
-	
 	public void update()
 	{	}
 
@@ -96,6 +115,31 @@ public class ViewGame extends View
 	
 	private void drawBackground(Canvas canvas, int opacityBackground)
 	{}
+
+	private void close()
+	{
+		if(backPressedTime + backDoublePressedInterval > System.currentTimeMillis())
+		{
+			m_app.setView(ActivityMain.VIEW_MAIN_MENU);
+			backToast.cancel();
+			return;
+		}
+		else
+		{
+			backToast = Toast.makeText(m_app.getBaseContext(), R.string.game_back_toast_text, Toast.LENGTH_SHORT);
+			backToast.show();
+		}
+		backPressedTime = System.currentTimeMillis();
+	}
+	// обработка системной кнопки "Назад" - начало    // ну
+	private long backPressedTime;
+	private long backDoublePressedInterval = 2000;
+	private Toast backToast;
+	public void onBackPressed() {
+		close();
+	}
+
+	// обработка системной кнопки "Назад" - конец
 
 	
 }

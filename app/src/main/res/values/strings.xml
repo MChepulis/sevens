@@ -16,6 +16,7 @@
     <string name="str_combo">Combo</string>
 
     <string name="tap_again_to_exit">Tap again to exit</string>
+    <string name="game_back_toast_text">Tap again to go main menu</string>
     <string name="start">Start</string>
     <string name="back">Back</string>
     <string name="watch_logo">About</string>

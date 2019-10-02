@@ -13,6 +13,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.content.res.*;
 import android.graphics.*;
 import android.widget.Button;
+import android.widget.Toast;
 //import android.view.ViewGroup.LayoutParams;
 import java.io.*;
 
@@ -42,6 +43,12 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 	ViewIntro			    m_viewIntro;
     ViewGame				m_viewGame;
 	ViewMainMenu			m_viewMainMenu;
+
+	private long backPressedTime;
+	private long backDoublePressedInterval = 2000;
+	private Toast backToast;
+
+	String m_str_tap_again_to_exit;
 	
 	
 	// screen dim
@@ -95,6 +102,12 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
         	//alertDialog.setMessage("This application available only in English or Russian language.");
         	//alertDialog.show();        	
         }
+
+		Resources res 		= getResources();
+		String strPackage 	= getPackageName();
+		m_str_tap_again_to_exit = res.getString(res.getIdentifier("tap_again_to_exit", "string", strPackage ));
+
+
         // Create application
         m_app = new AppIntro(this, language);
         // Create view
@@ -119,18 +132,16 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		}
 		if (m_viewCur == VIEW_GAME)
 		{
+			setContentView(R.layout.activity_game);
 			m_viewGame = new ViewGame(this);
 			Log.d("THREE", "Switch to m_viewGame" );
-			setContentView(m_viewGame);
-			//setContentView(R.layout.activity_game);
-			m_viewGame.start();
+
+			//setContentView(m_viewGame);
+			//m_viewGame.start();
 		}
 		if (m_viewCur == VIEW_MAIN_MENU)
 		{
 			setContentView(R.layout.main_menu);
-			System.out.println("id = " + R.id.main_btn_start);
-			Button start = (Button)findViewById(R.id.main_btn_start);
-			System.out.println(start);  /// он не смог найти!!!!
 			m_viewMainMenu = new ViewMainMenu(this);
 			Log.d("THREE", "Switch to m_viewMainMenu" );
 			//setContentView(R.layout.activity_game);
@@ -181,6 +192,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		}
 		return true;
     }
+
     public boolean onKeyDown(int keyCode, KeyEvent evt)
     {
 		if (keyCode == KeyEvent.KEYCODE_BACK)
@@ -194,11 +206,13 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
     	boolean ret = super.onKeyDown(keyCode, evt);
     	return ret;
     }
+
     public AppIntro getApp()
     {
     	return m_app;
     }
-    
+
+
 	protected void onResume()
 	{
 		super.onResume();
@@ -208,6 +222,8 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			m_viewGame.start();
 		//Log.d("THREE", "App onResume");
 	}
+
+
 	protected void onPause()
 	{
 	    // stop anims
@@ -220,20 +236,60 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		super.onPause();
 		//Log.d("THREE", "App onPause");
 	}
+
+
 	protected void onDestroy()
 	{
+		System.out.println("onDestroy");
 		if (m_viewCur == VIEW_GAME)
 			m_viewGame.onDestroy();
 		super.onDestroy();
 		//Log.d("THREE", "App onDestroy");
 	}
+
+
 	public void onConfigurationChanged(Configuration confNew)
 	{
 		super.onConfigurationChanged(confNew);
 		m_viewIntro.onConfigurationChanged(confNew);
 	}
-	
-    
-    
+
+	public void close()
+	{
+		super.onBackPressed();
+	}
+
+	// обработка системной кнопки "Назад" - начало
+	@Override
+	public void onBackPressed() {
+
+		System.out.println("Main onBackPressed");
+		/*
+		if (m_viewCur == VIEW_INTRO)
+			return m_viewIntro.onBackPressed();
+			return;
+			*/
+		if (m_viewCur == VIEW_GAME) {
+			m_viewGame.onBackPressed();
+			return;
+		}
+		else if (m_viewCur == VIEW_MAIN_MENU) {
+			m_viewMainMenu.onBackPressed();
+			return;
+		}
+		else {
+			if (backPressedTime + backDoublePressedInterval > System.currentTimeMillis()) {
+				close();
+				backToast.cancel();
+				return;
+			} else {
+				backToast = Toast.makeText(getBaseContext(), m_str_tap_again_to_exit, Toast.LENGTH_SHORT);
+				backToast.show();
+			}
+			backPressedTime = System.currentTimeMillis();
+		}
+	}
+
+	// обработка системной кнопки "Назад" - конец
 }
 
