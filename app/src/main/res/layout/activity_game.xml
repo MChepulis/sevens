@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <ImageView
+        android:id="@+id/game_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:orientation="horizontal"
+            android:layout_weight="0.2"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/game_btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/back" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/hexagon_field" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:orientation="vertical"
+            android:layout_weight="0.5"
+            android:gravity="center">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="460dp"
+                    android:weightSum="16"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:divider="@drawable/spacer_medium"
+                        android:showDividers="middle"
+                        android:weightSum="5"
+                        android:padding="4dp"
+                        android:layout_weight="4">
+
+
+                        <Button
+                            android:id="@+id/spacer_first_11"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                        <Button
+                            android:id="@+id/hex_1"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="1"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_2"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="2"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_3"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="3"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/spacer_first_12"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:layout_weight="2">
+
+                        <Button
+                            android:id="@+id/spacer_first_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="3dp"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:divider="@drawable/spacer_medium"
+                        android:showDividers="middle"
+                        android:weightSum="5"
+                        android:padding="4dp"
+                        android:layout_weight="4">
+
+                        <Button
+                            android:id="@+id/hex_8"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="8"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_9"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="9"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_10"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="10"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_11"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="11"
+
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_12"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="12"
+                            android:background="@drawable/hexagon"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:layout_weight="2">
+
+                        <Button
+                            android:id="@+id/spacer_first_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="3dp"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:divider="@drawable/spacer_medium"
+                        android:showDividers="middle"
+                        android:weightSum="5"
+                        android:padding="4dp"
+                        android:layout_weight="4">
+
+                        <Button
+                            android:id="@+id/spacer_first_51"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                        <Button
+                            android:id="@+id/hex_17"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="17"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_18"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="18"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_19"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="19"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/spacer_first_52"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="460dp"
+                    android:weightSum="16"
+                    >
+
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:layout_weight="3">
+
+                        <Button
+                            android:id="@+id/spacer_second_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="3dp"
+                            android:text="@string/game_spacer"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@color/game_spacer"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:layout_weight="4"
+                        android:divider="@drawable/spacer_medium"
+                        android:showDividers="middle"
+                        android:padding="4dp"
+                        android:weightSum="10">
+
+                        <Button
+                            android:id="@+id/spacer_second_21"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                        <Button
+                            android:id="@+id/hex_4"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="4"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_5"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="5"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_6"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="6"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+
+                        <Button
+                            android:id="@+id/hex_7"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="7"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+
+                        <Button
+                            android:id="@+id/spacer_second_22"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/game_spacer"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:layout_weight="2">
+
+                        <Button
+                            android:id="@+id/spacer_second_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_margin="3dp"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:layout_weight="4"
+                        android:divider="@drawable/spacer_medium"
+                        android:showDividers="middle"
+                        android:padding="4dp"
+                        android:weightSum="10">
+
+                        <Button
+                            android:id="@+id/spacer_second_41"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                        <Button
+                            android:id="@+id/hex_13"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="13"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_14"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="14"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/hex_15"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="15"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+
+                        <Button
+                            android:id="@+id/hex_16"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="16"
+                            android:textSize="@dimen/hex_text_size"
+                            android:background="@drawable/hexagon"/>
+                        <Button
+                            android:id="@+id/spacer_second_42"
+                            android:layout_width="0px"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/hex_text_size"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0px"
+                        android:orientation="horizontal"
+                        android:layout_weight="3">
+
+                        <Button
+                            android:id="@+id/spacer_second_5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:textSize="@dimen/hex_text_size"
+                            android:layout_margin="3dp"
+                            android:text="@string/game_spacer"
+                            android:background="@color/game_spacer"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:orientation="horizontal"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:weightSum="1">
+
+            <Button
+                android:id="@+id/game_btn_play2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:text="@string/play" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/new_hex"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/hexagon" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
