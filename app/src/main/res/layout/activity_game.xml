@@ -18,14 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="1"
+        android:weightSum="16"
         >
 
         <LinearLayout
+            android:id="@+id/game_top_layout"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:orientation="horizontal"
-            android:layout_weight="0.2"
+            android:layout_weight="1.825"
             android:weightSum="1.0"
             android:gravity="center">
 
@@ -43,458 +44,70 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:src="@drawable/hexagon_field" />
-
-
-
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/game_middle_layout"
             android:layout_width="match_parent"
             android:layout_height="0px"
-            android:orientation="vertical"
-            android:layout_weight="0.5"
+            android:layout_weight="9.2"
             android:gravity="center">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="460dp"
-                    android:weightSum="16"
-                    >
-
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:divider="@drawable/spacer_medium"
-                        android:showDividers="middle"
-                        android:weightSum="5"
-                        android:padding="4dp"
-                        android:layout_weight="4">
-
-
-                        <Button
-                            android:id="@+id/game_spacer_first_11"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                        <Button
-                            android:id="@+id/game_hex_1"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="1"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_2"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="2"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_3"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="3"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_spacer_first_12"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:layout_weight="2">
-
-                        <Button
-                            android:id="@+id/game_spacer_first_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_margin="3dp"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:divider="@drawable/spacer_medium"
-                        android:showDividers="middle"
-                        android:weightSum="5"
-                        android:padding="4dp"
-                        android:layout_weight="4">
-
-                        <Button
-                            android:id="@+id/game_hex_8"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="8"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_9"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="9"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_10"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="10"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_11"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="11"
-
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_12"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="12"
-                            android:background="@drawable/hexagon"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:layout_weight="2">
-
-                        <Button
-                            android:id="@+id/game_spacer_first_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_margin="3dp"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:divider="@drawable/spacer_medium"
-                        android:showDividers="middle"
-                        android:weightSum="5"
-                        android:padding="4dp"
-                        android:layout_weight="4">
-
-                        <Button
-                            android:id="@+id/game_spacer_first_51"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                        <Button
-                            android:id="@+id/game_hex_17"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="17"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_18"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="18"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_19"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="19"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_spacer_first_52"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="460dp"
-                    android:weightSum="16"
-                    >
-
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:layout_weight="3">
-
-                        <Button
-                            android:id="@+id/game_spacer_second_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_margin="3dp"
-                            android:text="@string/game_spacer"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@color/game_spacer"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:layout_weight="4"
-                        android:divider="@drawable/spacer_medium"
-                        android:showDividers="middle"
-                        android:padding="4dp"
-                        android:weightSum="10">
-
-                        <Button
-                            android:id="@+id/game_spacer_second_21"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                        <Button
-                            android:id="@+id/game_hex_4"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:text="4"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_5"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:text="5"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_6"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:text="6"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-
-                        <Button
-                            android:id="@+id/game_hex_7"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:text="7"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-
-                        <Button
-                            android:id="@+id/game_spacer_second_22"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/game_spacer"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:layout_weight="2">
-
-                        <Button
-                            android:id="@+id/game_spacer_second_3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_margin="3dp"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:layout_weight="4"
-                        android:divider="@drawable/spacer_medium"
-                        android:showDividers="middle"
-                        android:padding="4dp"
-                        android:weightSum="10">
-
-                        <Button
-                            android:id="@+id/game_spacer_second_41"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                        <Button
-                            android:id="@+id/game_hex_13"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:text="13"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_14"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:text="14"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_hex_15"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:text="15"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-
-                        <Button
-                            android:id="@+id/game_hex_16"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:text="16"
-                            android:textSize="@dimen/hex_text_size"
-                            android:background="@drawable/hexagon"/>
-                        <Button
-                            android:id="@+id/game_spacer_second_42"
-                            android:layout_width="0px"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:textSize="@dimen/hex_text_size"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="0px"
-                        android:orientation="horizontal"
-                        android:layout_weight="3">
-
-                        <Button
-                            android:id="@+id/game_spacer_second_5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:padding="10dp"
-                            android:textSize="@dimen/hex_text_size"
-                            android:layout_margin="3dp"
-                            android:text="@string/game_spacer"
-                            android:background="@color/game_spacer"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/game_bot1_layout"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:orientation="horizontal"
-            android:layout_weight="0.3"
-            android:gravity="center"
-            android:weightSum="1">
+            android:layout_weight="3.15"
+            android:weightSum="1"
+            android:gravity="center">
 
-            <Button
-                android:id="@+id/game_btn_play2"
+            <LinearLayout
+                android:id="@+id/game_bot1_left_layout"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="0.33"
+                android:gravity="center">
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/game_bot1_middle_layout"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="0.34"
+                android:gravity="center">
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/game_bot1_right_layout"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="0.33"
+                android:gravity="center">
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/game_bot2_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1.825"
+            android:gravity="left">
+
+
+            <ImageView
+                android:id="@+id/game_trash_bin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:layout_gravity="center"
-                android:text="@string/play" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:src="@mipmap/ic_launcher" />
+
 
         </LinearLayout>
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:id="@+id/game_new_hex"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:src="@drawable/hexagon" />
-    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
