@@ -22,5 +22,6 @@
     <string name="watch_logo">About</string>
     <string name="game_spacer"></string>
     <string name="play">Play</string>
+    <string name="game_over">Game Over</string>
 
 </resources>

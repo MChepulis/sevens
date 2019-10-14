@@ -1,5 +1,6 @@
 package com.example.sevens;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.content.ClipData;
@@ -10,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.os.IInterface;
 import android.os.Message;
 import android.graphics.*;
 import android.graphics.Paint.Style;
@@ -23,8 +25,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.arch.core.util.Function;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 
@@ -41,13 +45,13 @@ class GameRefreshHandler extends Handler
 	}
 
 	public void handleMessage(Message msg) {
-		System.out.println("handleMessage ");
+		//System.out.println("handleMessage ");
 		m_viewGame.update();
 		m_viewGame.invalidate();
 	}
 	
 	public void sleep(long delayMillis) {
-		System.out.println("sleep");
+		//System.out.println("sleep");
 		this.removeMessages(0);
 	    sendMessageDelayed(obtainMessage(0), delayMillis);
 	}
@@ -55,6 +59,11 @@ class GameRefreshHandler extends Handler
 	public void stop() {
 		this.removeMessages(0);
 	}
+	public void start() {
+		this.sendEmptyMessage(0);
+	}
+
+
 };
 
 public class ViewGame extends View {
@@ -65,13 +74,23 @@ public class ViewGame extends View {
 
 
 	ConstraintLayout main_layout;
+	LinearLayout L_main_layout;
 	LinearLayout top_layout;
+	LinearLayout game_over_layout;
 	ConstraintLayout mid_layout;
 	LinearLayout bot1_layout;
 	LinearLayout bot2_layout;
 	LinearLayout bot1_right_layout;
 	LinearLayout bot1_middle_layout;
 	LinearLayout bot1_left_layout;
+	HexGridDragDropDragListener dragListener;
+	TextView game_over_Text;
+	Button game_over_btn_try_again;
+	Button game_over_btn_main_menu;
+	Button staff_only_btn;
+	LinearLayout game_over_text_layout;
+	LinearLayout game_over_button_layout;
+
 
 	Button back;
 
@@ -79,7 +98,8 @@ public class ViewGame extends View {
 	ImageView background;
 
 	HexagonGrid hexGrid;
-	HexagonGrid newHexGrid;
+	HexagonGrid puzzle;
+	boolean isNeedGenerateNewPuzzle;
 
 
 	boolean flag = true;
@@ -94,6 +114,7 @@ public class ViewGame extends View {
 		m_handler 	= new GameRefreshHandler(this);
 		m_isActive = false;
 		setOnTouchListener(app);
+		isNeedGenerateNewPuzzle = true;
 
 
 		back = (Button) m_app.findViewById(R.id.game_btn_back);
@@ -101,8 +122,7 @@ public class ViewGame extends View {
 			@Override
 			public void onClick(View v) {
 				System.out.println("Game backPressed");
-
-				close();
+				closeMessage();
 			}
 		});
 
@@ -110,20 +130,48 @@ public class ViewGame extends View {
 		trash_bin.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (flag) {
-					m_handler.sendEmptyMessage(1);
-					flag = false;
-				}
-				else {
-					m_handler.stop();
-					flag = true;
-				}
+				setNeedGenerateNewPuzzle();
+				//GameOver();
 			}
 		});
+		L_main_layout = m_app.findViewById(R.id.game_main_layout);
 		top_layout = m_app.findViewById(R.id.game_top_layout);
-
-
 		mid_layout = m_app.findViewById(R.id.game_middle_layout);
+		bot1_layout = m_app.findViewById(R.id.game_bot1_layout);
+		bot2_layout = m_app.findViewById(R.id.game_bot2_layout);
+		bot1_middle_layout = m_app.findViewById(R.id.game_bot1_middle_layout);
+		game_over_layout = m_app.findViewById(R.id.game_over_layout);
+		game_over_Text =  m_app.findViewById(R.id.game_over_text);
+		game_over_btn_try_again =  m_app.findViewById(R.id.game_over_btn_try_again);
+		game_over_btn_main_menu =  m_app.findViewById(R.id.game_over_btn_main_menu);
+		game_over_text_layout =  m_app.findViewById(R.id.game_over_text_layout);
+		game_over_button_layout =  m_app.findViewById(R.id.game_over_button_layout);
+		staff_only_btn = m_app.findViewById(R.id.game_staff_only);
+
+		game_over_btn_main_menu.setOnClickListener( new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				close();
+			}
+		});
+
+		game_over_btn_try_again.setOnClickListener( new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				gameRestart();
+				closeGameOverDialog();
+			}
+		});
+
+		staff_only_btn.setOnClickListener( new View.OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				GameOver();
+			}
+		});
+
+		game_over_layout.setVisibility(INVISIBLE);
+
 		hexGrid = new HexagonGrid(m_app);
 		hexGrid.setGridParams(5, 5);
 		hexGrid.deleteHex(0, 0);
@@ -131,36 +179,167 @@ public class ViewGame extends View {
 		hexGrid.deleteHex(4, 0);
 		hexGrid.deleteHex(4, 4);
 		mid_layout.addView(hexGrid);
-		hexGrid.setOnDragListener(new HexGridDragDropDragListener(m_app.getApplicationContext()));
+		dragListener = new HexGridDragDropDragListener(m_app.getApplicationContext());
+		dragListener.registeredCallBackFunk(new Function<Void, Void>() {
+			@Override
+			public Void apply(Void input) {
+				setNeedGenerateNewPuzzle();
+				return null;
+			}
+		});
+
+		hexGrid.setOnDragListener(dragListener);
+
+		puzzle = new HexagonGrid(m_app);
+		puzzle.setGridParams(2, 2);
+		puzzle.setTag("hexGrid2");
+		puzzle.deleteHex(0, 0);
+		bot1_middle_layout.addView(puzzle);
+
+		hexGrid.synchronizeRadius(puzzle);
+		puzzle.synchronizeRadius(hexGrid);
+		puzzle.setOnTouchListener(new HexGridDragDropOnTouchListener());
+	}
 
 
-		bot1_layout = m_app.findViewById(R.id.game_bot1_layout);
-		bot1_middle_layout = m_app.findViewById(R.id.game_bot1_middle_layout);
+	int rotateCount;
+	private void rotatePuzzle()
+	{
 
-		newHexGrid = new HexagonGrid(m_app);
-		newHexGrid.setGridParams(2, 2);
-		newHexGrid.setTag("hexGrid2");
-		newHexGrid.deleteHex(0, 0);
-		bot1_middle_layout.addView(newHexGrid);
+		if(rotateCount < 3) {
+			puzzle.swapHexagon(0, 0, 0, 1);
+			puzzle.swapHexagon(0, 1, 1, 0);
+		}
+		else
+		{
+			puzzle.swapHexagon(0, 1, 1, 0);
 
-		hexGrid.synchronizeRadius(newHexGrid);
-		newHexGrid.synchronizeRadius(hexGrid);
-		newHexGrid.setOnTouchListener(new HexGridDragDropOnTouchListener());
+		}
+		puzzle.OnCenter();
+		rotateCount = (rotateCount + 1) % 4;
+		System.out.println("rotateCount " + rotateCount);
+	}
 
+
+	public void setNeedGenerateNewPuzzle() {
+		isNeedGenerateNewPuzzle = true;
+	}
+
+	// FIXME нужно сделать болле интересный генератор
+	private int getNewState()
+	{
+		Random rand = new Random();
+		int state = rand.nextInt(Hexagon.getMaxState());
+		return state + 1;  //т.к. state==0б не имеет смысла и заодно включаем верхнюю границу
+	}
+
+	private int getNewAmount(int maxAmount)
+	{
+		Random rand = new Random();
+		int result = rand.nextInt(maxAmount);
+		return result;
+	}
+
+
+	private int getQuatityForPuzzle()
+	{
+		for( int i = 2; i > 0; i --)
+		{
+			if(hexGrid.IsCanPlace(i))
+			{
+				return i;
+			}
+		}
+		return 0;
+
+	}
+	private void generatePuzzle() {
+		rotateCount = 0;
+		isNeedGenerateNewPuzzle = false;
+		puzzle.clearTrimedArr();
+
+		Random rand = new Random();
+
+		int quantity = getQuatityForPuzzle();
+		if (quantity == 0) {
+			GameOver();
+			quantity = 1;
+		}
+		int amount = getNewAmount(quantity);
+		int cur_order = rand.nextInt(3);
+		for (int i = 0; i < amount + 1; i++) {
+
+			int newState = getNewState();
+			//int newState = 6;
+			switch (cur_order) {
+				case 0:
+					puzzle.setHexagonState(0, 0, newState);
+					break;
+				case 1:
+					puzzle.setHexagonState(0, 1, newState);
+					break;
+				case 2:
+					puzzle.setHexagonState(1, 0, newState);
+					break;
+			}
+			cur_order = (cur_order + 1) % 3;
+		}
+		for (int i = amount + 1; i < 3; i++) {
+			switch (cur_order) {
+				case 0:
+					puzzle.deleteHex(0, 0);
+					break;
+				case 1:
+					puzzle.deleteHex(0, 1);
+					break;
+				case 2:
+					puzzle.deleteHex(1, 0);
+					break;
+			}
+			cur_order = (cur_order + 1) % 3;
+		}
+		puzzle.OnCenter();
+		puzzle.invalidate();
+	}
+
+
+	boolean flag1 = true;
+
+	private void openGameOverDialog()
+	{
+		game_over_layout.setVisibility(VISIBLE);
+		pause();
+		flag1 = false;
+
+		//FIXME задать размер текста
+		//FIXME кнопки
+	}
+
+	private void closeGameOverDialog()
+	{
+		game_over_layout.setVisibility(INVISIBLE);
+		resume();
+		flag1 = true;
+	}
+	public void GameOver() {
+		System.out.println("Game Over");
+		if(flag1) {
+			openGameOverDialog();
+		}
+		else{
+			closeGameOverDialog();
+		}
 
 
 	}
-
-	void OnTouchListener() {
-
-	}
-
-
-
 	private void init() {
 	}
 
 	private void gameRestart() {
+		hexGrid.RefreshAllHexagonsState();
+
+		isNeedGenerateNewPuzzle = true;
+		generatePuzzle();
 	}
 
 	public boolean performClick() {
@@ -183,10 +362,6 @@ public class ViewGame extends View {
 	private void soundOnBuild(int numIcons) {
 	}
 
-	private boolean isPossibleThree() {
-		return true;
-	}
-
 
 	public boolean onTouch(int x, int y, int evtType) {
 		System.out.println("Game OnTouch");
@@ -200,9 +375,15 @@ public class ViewGame extends View {
 	private void prepareScreenValues(Canvas canvas) {
 	}
 
-	private void close() {
+	private void close()
+	{
+		m_isActive = false;
+		stop();
+		m_app.setView(ActivityMain.VIEW_MAIN_MENU);
+	}
+	private void closeMessage() {
 		if (backPressedTime + backDoublePressedInterval > System.currentTimeMillis()) {
-			m_app.setView(ActivityMain.VIEW_MAIN_MENU);
+			close();
 			backToast.cancel();
 			return;
 		} else {
@@ -214,34 +395,115 @@ public class ViewGame extends View {
 
 	// обработка системной кнопки "Назад" - начало
 	public void onBackPressed() {
-		close();
+		closeMessage();
+	}
+
+
+	public void pause() {
+		System.out.println("Game pause");
+		puzzle.setEnabled(false);
+		back.setEnabled(false);
+		trash_bin.setEnabled(false);
+		m_handler.stop();
+	}
+
+	public void resume() {
+		System.out.println("Game  resume");
+		puzzle.setEnabled(true);
+		back.setEnabled(true);
+		trash_bin.setEnabled(true);
+		start();
 	}
 
 
 	public void start() {
 		System.out.println("Game start");
 		m_isActive = true;
+		m_handler.start();
+
 		init();
 		//m_handler.sleep(UPDATE_TIME_MS);
 	}
 
 	public void stop() {
 		System.out.println("Game stop");
-		m_isActive = false;
+		m_handler.stop();
+		m_isActive = false;  //?????????????????????????????????????????
 		//m_handler.sleep(UPDATE_TIME_MS);
 	}
 
 	public void update() {
-		System.out.println("Game update");
+		//System.out.println("Game update");
 		if (!m_isActive)
 			return;
 		// send next update to game
-		if (m_isActive)
+		if (m_isActive) {
+			if(isNeedGenerateNewPuzzle) {
+				generatePuzzle();
+			}
 			m_handler.sleep(UPDATE_TIME_MS);
+		}
 	}
 
 	public void onConfigurationChanged(Configuration confNew) {
 		System.out.println("ViewIntro onConfigurationChanged");
 	}
+
+	public class  HexGridDragDropOnTouchListener implements View.OnTouchListener {
+
+		MyDragShadowBuilder dragShadowBuilder;
+		HexGridDragDropOnTouchListener()
+		{
+			super();
+		}
+		@Override
+		public boolean onTouch(View view, MotionEvent motionEvent) {
+
+
+			System.out.println("event " + motionEvent.getAction());
+			if (motionEvent.getAction() == motionEvent.ACTION_DOWN) {
+
+				// Create drag shadow builder object.
+				float tmp_x = motionEvent.getX() > 0? motionEvent.getX():0;
+				float tmp_y = motionEvent.getY() > 0? motionEvent.getY():0;
+
+				dragShadowBuilder = new MyDragShadowBuilder(view);
+				dragShadowBuilder.setOffsets(tmp_x, tmp_y );
+				//dragShadowBuilder.setOffsets( view.getWidth() / 2,  view.getHeight() / 2);
+
+				((HexagonGrid) view).dragTouchCoord_x = tmp_x;
+				((HexagonGrid) view).dragTouchCoord_y = tmp_y ;
+				System.out.println(motionEvent.getX() + " " + motionEvent.getY());
+				((HexagonGrid) view).isDragTouchCoordSet = true;
+			}
+			if (motionEvent.getAction() == motionEvent.ACTION_UP) {
+				rotatePuzzle();
+				view.setVisibility(View.VISIBLE);
+				return true;
+			}
+			if (motionEvent.getAction() == motionEvent.ACTION_MOVE) {
+				// Get view object tag value.
+				String tag = (String) view.getTag();
+
+				// Create clip data.
+				ClipData clipData = ClipData.newPlainText("", tag);
+
+
+        	/* Invoke view object's startDrag method to start the drag action.
+          	 	clipData : to be dragged data.
+           		dragShadowBuilder : the shadow of the dragged view.
+        	*/
+				view.startDrag(clipData, dragShadowBuilder, view, 0);
+
+
+				// Hide the view object because we are dragging it.
+				view.setVisibility(View.INVISIBLE);
+
+				return true;
+			}
+			return true;
+		}
+	}
+
 
 }

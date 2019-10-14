@@ -12,26 +12,11 @@ import android.widget.LinearLayout;
 public class  HexGridDragDropOnTouchListener implements View.OnTouchListener {
 
 
-    /*
-        private Pair<Float, Float> GetAbsoluteCoord(View view)
-        {
-            float x = view.getX();
-            float y = view.getY();
-            ViewParent parent = view.getParent();
-            while(parent != null)
-            {
-                try {
-                    ViewGroup group = (ViewGroup) parent;
-                    x += group.getX();
-                    y += group.getY();
-                    parent = parent.getParent();
-                } catch(Exception e){
-                    parent = null;
-                }
-            }
-            return new Pair<>(x, y);
-        }
-    */
+
+    HexGridDragDropOnTouchListener()
+    {
+        super();
+    }
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
@@ -47,7 +32,7 @@ public class  HexGridDragDropOnTouchListener implements View.OnTouchListener {
             //View.DragShadowBuilder dragShadowBuilder = new View.DragShadowBuilder(view);
 
             MyDragShadowBuilder dragShadowBuilder = new MyDragShadowBuilder(view);
-            System.out.println("event  " + motionEvent.getX() + "\t\t" + motionEvent.getY());
+            //System.out.println("event  " + motionEvent.getX() + "\t\t" + motionEvent.getY());
             dragShadowBuilder.setOffsets(motionEvent.getX(), motionEvent.getY());
             //dragShadowBuilder.setOffsets( view.getWidth() / 2,  view.getHeight() / 2);
             ((HexagonGrid) view).dragTouchCoord_x = motionEvent.getX();
@@ -70,7 +55,7 @@ public class  HexGridDragDropOnTouchListener implements View.OnTouchListener {
             return true;
         }
         if (motionEvent.getAction() == motionEvent.ACTION_UP) {
-            view.setVisibility(View.INVISIBLE);
+            view.setVisibility(View.VISIBLE);
             return true;
         }
         return true;

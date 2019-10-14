@@ -115,30 +115,42 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			return;
 		}
 
+		switch (m_viewCur)
+		{
+			case VIEW_INTRO:
+				m_viewIntro.stop();
+				break;
+			case VIEW_GAME:
+				m_viewGame.stop();
+				break;
+			case VIEW_MAIN_MENU:
+				m_viewMainMenu.stop();
+				break;
+		}
+
 		m_viewCur = viewID;
-		if (m_viewCur == VIEW_INTRO) {
-			m_viewIntro = new ViewIntro(this);
-			setContentView(m_viewIntro);
+		switch (m_viewCur)
+		{
+			case VIEW_INTRO:
+				m_viewIntro = new ViewIntro(this);
+				setContentView(m_viewIntro);
+				m_viewIntro.start();
+				Log.d("THREE", "Switch to m_viewIntro");
+				break;
+			case VIEW_GAME:
+				setContentView(R.layout.activity_game);
+				m_viewGame = new ViewGame(this);
+				m_viewGame.start();
+				Log.d("THREE", "Switch to m_viewGame");
+				break;
+			case VIEW_MAIN_MENU:
+				setContentView(R.layout.main_menu);
+				m_viewMainMenu = new ViewMainMenu(this);
+				Log.d("THREE", "Switch to m_viewMainMenu");
+				m_viewMainMenu.start();
+				break;
 		}
-		if (m_viewCur == VIEW_GAME) {
-			setContentView(R.layout.activity_game);
-			//setContentView(R.layout.game);
-			m_viewGame = new ViewGame(this);
-			m_viewGame.start();
-			Log.d("THREE", "Switch to m_viewGame");
 
-
-			//setContentView(m_viewGame);
-			//m_viewGame.start();
-		}
-		if (m_viewCur == VIEW_MAIN_MENU) {
-			setContentView(R.layout.main_menu);
-			m_viewMainMenu = new ViewMainMenu(this);
-			Log.d("THREE", "Switch to m_viewMainMenu");
-			//setContentView(R.layout.activity_game);
-
-			//m_viewMainMenu.start();
-		}
 	}
 
 	protected void onPostCreate(Bundle savedInstanceState) {
