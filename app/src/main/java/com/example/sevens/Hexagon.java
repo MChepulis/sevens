@@ -8,10 +8,14 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.Comparator;
+
 public class Hexagon extends View{
 
     public static final int STATE_EMPTY = 0;
     public static final int STATE_MAX = 7;
+
+    private static final int tmp_alpha = 0xCF;
 
     /*Integer[] colorForState = {R.color.state_0, R.color.state_1, R.color.state_2, R.color.state_3,
             R.color.state_4, R.color.state_5, R.color.state_6,  R.color.state_7};
@@ -24,48 +28,56 @@ public class Hexagon extends View{
     private ActivityMain m_app;
     private Boolean m_isExist;
     private int state;
+    private boolean isDoneFlag;
+    private int tmp_state;
 
-
+    public void setIsDoneFlag( boolean new_value) { isDoneFlag = new_value;    }
     public void setColor(Integer color) {
         this.color = color;
     }
-
     public void setExist(Boolean isExist_) {
         this.m_isExist= isExist_;
     }
+    public void setState(int newState) {state = newState; }
+    public void setTmpState(int  newState) {tmp_state = newState; }
 
 
+    public float getRadius(){return radius;}
     public int getColor(){return  color;}
     public Boolean isExist(){ return  m_isExist; }
     public int getState() { return  state; }
-    public void ApdateState() { state = (state +  1) % STATE_MAX; }
+    public void ApdateState() { state = (state +  1) % (STATE_MAX + 1); }
+    public static int getMaxState() { return STATE_MAX; }
+    public boolean getIsDoneFlag(){ return isDoneFlag; }
+    public boolean IsEmpty() { return state == STATE_EMPTY; }
+    public int getTmpState() { return tmp_state; }
+
     public void ResetState() {state = STATE_EMPTY; }
-
-    public void setState(int newState) {state = newState; }
-
+    public void ResetTmpState() {tmp_state = STATE_EMPTY; }
 
 
-
-    public Hexagon(Context context) {
-        super(context);
+    private void init(Context context){
         m_app = (ActivityMain) context;
         m_isExist = true;
         state = STATE_EMPTY;
         color = Color.RED;
+        isDoneFlag = false;
+        tmp_state = STATE_EMPTY ;
+
+    }
+    public Hexagon(Context context) {
+        super(context);
+        init(context);
     }
 
     public Hexagon(Context context, AttributeSet attrs) {
         super(context, attrs);
-        m_app = (ActivityMain) context;
-        m_isExist = true;
-        state = STATE_EMPTY;
+        init(context);
     }
 
     public Hexagon(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        m_app = (ActivityMain) context;
-        m_isExist = true;
-        state = STATE_EMPTY;
+        init(context);
     }
 
     public void setParams (float x, float y, float radius)
@@ -96,14 +108,22 @@ public class Hexagon extends View{
         {
             return;
         }
-        int tmp_color = color;
-        if(color == Color.RED)
+        int alpha;
+        if(tmp_state == STATE_EMPTY)
         {
-            tmp_color = colorForState[state];
+            color = colorForState[state];
+            alpha = 0xFF;
         }
+        else
+        {
+            color = colorForState[tmp_state];
+            alpha = tmp_alpha;
+        }
+
         Paint paintGraftFill = new Paint();
         paintGraftFill.setStyle(Paint.Style.FILL);
-        paintGraftFill.setColor(tmp_color);  ////////////////тут нужен цвет!!!
+        paintGraftFill.setColor(color);
+        paintGraftFill.setAlpha(alpha);
         paintGraftFill.setAntiAlias(true);
 
         int vertNum = 6;
@@ -132,9 +152,5 @@ public class Hexagon extends View{
         drawLikePath(canvas);
 
     }
-
-
-
-
 
 }

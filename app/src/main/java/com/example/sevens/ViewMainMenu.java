@@ -42,7 +42,13 @@ class MenuRefreshHandler extends Handler
         this.removeMessages(0);
         sendMessageDelayed(obtainMessage(0), delayMillis);
     }
-};
+    public void stop() {
+        this.removeMessages(0);
+    }
+    public void start() {
+        this.sendEmptyMessage(0);
+    }
+}
 
 public class ViewMainMenu extends View {
 
@@ -50,7 +56,7 @@ public class ViewMainMenu extends View {
     private static final int UPDATE_TIME_MS = 30;
 
     ActivityMain	m_app;
-    //MenuRefreshHandler   m_handler;
+    MenuRefreshHandler   m_handler;
     boolean			m_isActive;
 
     private int m_scrW, m_scrH;
@@ -62,7 +68,7 @@ public class ViewMainMenu extends View {
     {
         super(app);
         m_app = app;
-        //m_handler 	= new MenuRefreshHandler(this);
+        m_handler 	= new MenuRefreshHandler(this);
         m_isActive 	= false;
         setOnTouchListener(app);
 
@@ -91,11 +97,13 @@ public class ViewMainMenu extends View {
     public void start()
     {
         m_isActive 	= true;
+        m_handler.start();
         //m_handler.sleep(UPDATE_TIME_MS);
     }
     public void stop()
     {
         m_isActive 	= false;
+        m_handler.stop();
         //m_handler.sleep(UPDATE_TIME_MS);
     }
 
@@ -125,7 +133,6 @@ public class ViewMainMenu extends View {
     public void onDraw(Canvas canvas)  /// нужно ли оно сейчас?
     {
         System.out.println("MainMenu onDraw");
-
     }
 
     // обработка системной кнопки "Назад" - начало

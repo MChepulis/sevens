@@ -34,6 +34,13 @@ class RedrawHandler extends Handler
 		this.removeMessages(0);
 	    sendMessageDelayed(obtainMessage(0), delayMillis);
 	}
+	public void stop() {
+		this.removeMessages(0);
+	}
+	public void start() {
+		this.sendEmptyMessage(0);
+	}
+
 };
 
 public class ViewIntro extends View 
@@ -48,6 +55,7 @@ public class ViewIntro extends View
 	long			m_startTime;
 	int				m_lineLen;
 	boolean			m_active;
+	AppIntro		appIntro;
 	
 	// METHODS
 	public ViewIntro(ActivityMain app)
@@ -60,6 +68,7 @@ public class ViewIntro extends View
 		m_startTime = 0;
 		m_lineLen 	= 0;
 		m_active 	= false;
+		appIntro =  new AppIntro(m_app, 0);  //// тут задаётся язык для интро, но в интро он не используется, потому просто заглушка
 		setOnTouchListener(app);
 	}
 	public boolean performClick()
@@ -90,6 +99,7 @@ public class ViewIntro extends View
 		if (m_active)
 			m_handler.sleep(UPDATE_TIME_MS);
 	}
+	/*
 	public boolean onTouch(int x, int y, int evtType)
 	{
 		System.out.println("ViewIntro OnTouch");
@@ -109,6 +119,28 @@ public class ViewIntro extends View
 	{
 		AppIntro app = m_app.getApp();
 		app.drawCanvas(canvas);
+		//appIntro.drawCanvas(canvas);
 	}
+	*/
+
+	public boolean onTouch(int x, int y, int evtType)
+	{
+		System.out.println("ViewIntro OnTouch");
+		return appIntro.onTouch(x,  y, evtType);
+	}
+	public void onConfigurationChanged(Configuration confNew)
+	{
+		System.out.println("ViewIntro onConfigurationChanged");
+		if (confNew.orientation == Configuration.ORIENTATION_LANDSCAPE)
+			appIntro.onOrientation(AppIntro.APP_ORI_LANDSCAPE);
+		if (confNew.orientation == Configuration.ORIENTATION_PORTRAIT)
+			appIntro.onOrientation(AppIntro.APP_ORI_PORTRAIT);
+	}
+	public void onDraw(Canvas canvas)
+	{
+		appIntro.drawCanvas(canvas);
+	}
+
+
 
 }
