@@ -206,17 +206,19 @@ public class ViewGame extends View {
 	private void rotatePuzzle()
 	{
 
-		if(rotateCount < 3) {
-			puzzle.swapHexagon(0, 0, 0, 1);
-			puzzle.swapHexagon(0, 1, 1, 0);
-		}
-		else
-		{
-			puzzle.swapHexagon(0, 1, 1, 0);
-
+		switch (rotateCount) {
+			case 0:
+				puzzle.swapHexagon(0, 1, 1, 0);
+				break;
+			case 1:
+				puzzle.swapHexagon(0, 0, 0, 1);
+				break;
+			case 2:
+				puzzle.swapHexagon(1, 0, 0, 0);
+				break;
 		}
 		puzzle.OnCenter();
-		rotateCount = (rotateCount + 1) % 4;
+		rotateCount = (rotateCount + 1) % 3;
 		System.out.println("rotateCount " + rotateCount);
 	}
 
@@ -254,7 +256,7 @@ public class ViewGame extends View {
 
 	}
 	private void generatePuzzle() {
-		rotateCount = 0;
+
 		isNeedGenerateNewPuzzle = false;
 		puzzle.clearTrimedArr();
 
@@ -267,6 +269,17 @@ public class ViewGame extends View {
 		}
 		int amount = getNewAmount(quantity);
 		int cur_order = rand.nextInt(3);
+		switch (cur_order) {
+			case 0:
+				rotateCount = 0;
+				break;
+			case 1:
+				rotateCount = 2;
+				break;
+			case 2:
+				rotateCount = 1;
+				break;
+		}
 		for (int i = 0; i < amount + 1; i++) {
 
 			int newState = getNewState();
