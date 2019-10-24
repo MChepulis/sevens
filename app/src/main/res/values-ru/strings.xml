@@ -13,6 +13,9 @@
     <string name="str_score">Очки</string>
     <string name="str_combo">Комбо</string>
 
+    <string name="str_moves">Moves</string>
+    <string name="str_total">Total</string>
+
     <string name="tap_again_to_exit">Нажмите ещё раз для выхода</string>
     <string name="game_back_toast_text">Нажмите ещё раз для перехода в меню</string>
     <string name="start">Начать</string>
