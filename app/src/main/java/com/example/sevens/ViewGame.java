@@ -425,7 +425,7 @@ public class ViewGame extends View {
 		puzzle.setEnabled(true);
 		back.setEnabled(true);
 		trash_bin.setEnabled(true);
-		start();
+		m_handler.start();
 	}
 
 

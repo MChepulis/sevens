@@ -82,13 +82,23 @@ public class ViewIntro extends View
 	{
 		System.out.println("ViewIntro start");
 		m_active 	= true;
-		m_handler.sleep(UPDATE_TIME_MS);
+		m_handler.start();
 	}
 	public void stop()
 	{
 		System.out.println("ViewIntro stop");
 		m_active 	= false;
-		//m_handler.sleep(UPDATE_TIME_MS);
+		m_handler.stop();
+	}
+
+	public void pause()
+	{
+		m_handler.stop();
+	}
+
+	public void resume()
+	{
+		m_handler.start();
 	}
 	
 	public void update()
@@ -98,6 +108,11 @@ public class ViewIntro extends View
 		// send next update to game
 		if (m_active)
 			m_handler.sleep(UPDATE_TIME_MS);
+	}
+
+	public void onBackPressed() {
+		m_app.returnToPrevView();
+		return;
 	}
 	/*
 	public boolean onTouch(int x, int y, int evtType)
@@ -122,6 +137,8 @@ public class ViewIntro extends View
 		//appIntro.drawCanvas(canvas);
 	}
 	*/
+
+
 
 	public boolean onTouch(int x, int y, int evtType)
 	{

@@ -30,17 +30,22 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 	public static final int VIEW_INTRO = 0;
 	public static final int VIEW_GAME = 1;
 	public static final int VIEW_MAIN_MENU = 2;
+	public static final int VIEW_SETTINGS = 3;
 
 
 	// *************************************************
 	// DATA
 	// *************************************************
 	int m_viewCur = -1;
+	int m_viewPrev = -1;
 
 	AppIntro m_app;
 	ViewIntro m_viewIntro;
 	ViewGame m_viewGame;
 	ViewMainMenu m_viewMainMenu;
+	ViewSettings m_viewSettings;
+	SoundHandler soundBox;
+	SettingsHandler settings;
 
 	private long backPressedTime;
 	private long backDoublePressedInterval = 2000;
@@ -88,11 +93,6 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		} else {
 			Log.d("THREE", "LOCALE unknown: " + strLang);
 			language = AppIntro.LANGUAGE_UNKNOWN;
-			//AlertDialog alertDialog;
-			//alertDialog = new AlertDialog.Builder(this).create();
-			//alertDialog.setTitle("Language settings");
-			//alertDialog.setMessage("This application available only in English or Russian language.");
-			//alertDialog.show();
 		}
 
 		Resources res = getResources();
@@ -105,6 +105,9 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		// Create view
 
 
+		soundBox = new SoundHandler(this);
+		settings = new SettingsHandler(this);
+		System.out.println(soundBox);
 		setView(VIEW_INTRO);
 
 	}
@@ -115,22 +118,9 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			return;
 		}
 
-		switch (m_viewCur)
-		{
-			case VIEW_INTRO:
-				m_viewIntro.stop();
-				break;
-			case VIEW_GAME:
-				m_viewGame.stop();
-				break;
-			case VIEW_MAIN_MENU:
-				m_viewMainMenu.stop();
-				break;
-		}
-
+		m_viewPrev = m_viewCur;
 		m_viewCur = viewID;
-		switch (m_viewCur)
-		{
+		switch (m_viewCur) {
 			case VIEW_INTRO:
 				m_viewIntro = new ViewIntro(this);
 				setContentView(m_viewIntro);
@@ -146,11 +136,16 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			case VIEW_MAIN_MENU:
 				setContentView(R.layout.main_menu);
 				m_viewMainMenu = new ViewMainMenu(this);
-				Log.d("THREE", "Switch to m_viewMainMenu");
 				m_viewMainMenu.start();
+				Log.d("THREE", "Switch to m_viewMainMenu");
+				break;
+			case VIEW_SETTINGS:
+				setContentView(R.layout.settings_menu);
+				m_viewSettings = new ViewSettings(this);
+				m_viewSettings.start();
+				Log.d("THREE", "Switch tom_viewSettings");
 				break;
 		}
-
 	}
 
 	protected void onPostCreate(Bundle savedInstanceState) {
@@ -189,7 +184,10 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			return m_viewGame.onTouch(x, y, touchType);
 		if (m_viewCur == VIEW_MAIN_MENU)
 			return m_viewMainMenu.onTouch(x, y, touchType);
+		if (m_viewCur == VIEW_SETTINGS)
+			return m_viewSettings.onTouch(x, y, touchType);
 		{
+
 		}
 		return true;
 	}
@@ -212,21 +210,45 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 
 
 	protected void onResume() {
+		System.out.println("Main onResume");
 		super.onResume();
-		if (m_viewCur == VIEW_INTRO)
-			m_viewIntro.start();
-		if (m_viewCur == VIEW_GAME)
-			m_viewGame.start();
+		//soundBox.resume();
+		switch (m_viewCur) {
+			case VIEW_INTRO:
+				m_viewIntro.resume();
+				break;
+			case VIEW_GAME:
+				m_viewGame.resume();
+				break;
+			case VIEW_MAIN_MENU:
+				m_viewMainMenu.resume();
+				break;
+			case VIEW_SETTINGS:
+				m_viewSettings.resume();
+				break;
+		}
 		//Log.d("THREE", "App onResume");
 	}
 
 
 	protected void onPause() {
 		// stop anims
-		if (m_viewCur == VIEW_INTRO)
-			m_viewIntro.stop();
-		if (m_viewCur == VIEW_GAME)
-			m_viewGame.onPause();
+		System.out.println("Main nPause()");
+		soundBox.pause();
+		switch (m_viewCur) {
+			case VIEW_INTRO:
+				m_viewIntro.pause();
+				break;
+			case VIEW_GAME:
+				m_viewGame.pause();
+				break;
+			case VIEW_MAIN_MENU:
+				m_viewMainMenu.pause();
+				break;
+			case VIEW_SETTINGS:
+				m_viewSettings.pause();
+				break;
+		}
 
 		// complete system
 		super.onPause();
@@ -236,6 +258,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 
 	protected void onDestroy() {
 		System.out.println("onDestroy");
+		soundBox.stop();
 		if (m_viewCur == VIEW_GAME)
 			m_viewGame.onDestroy();
 		super.onDestroy();
@@ -252,33 +275,54 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		super.onBackPressed();
 	}
 
+	public void returnToPrevView() {
+		if (m_viewPrev != -1) {
+			setView(m_viewPrev);
+		} else {
+			doubleclickToClose();
+		}
+	}
+
+
+
+	public void doubleclickToClose()
+	{
+		if (backPressedTime + backDoublePressedInterval > System.currentTimeMillis()) {
+			close();
+			backToast.cancel();
+			return;
+		} else {
+			backToast = Toast.makeText(getBaseContext(), m_str_tap_again_to_exit, Toast.LENGTH_SHORT);
+			backToast.show();
+		}
+		backPressedTime = System.currentTimeMillis();
+	}
+
 	// обработка системной кнопки "Назад" - начало
 	@Override
 	public void onBackPressed() {
 
 		System.out.println("Main onBackPressed");
-		/*
-		if (m_viewCur == VIEW_INTRO)
-			return m_viewIntro.onBackPressed();
-			return;
-			*/
-		if (m_viewCur == VIEW_GAME) {
-			m_viewGame.onBackPressed();
-			return;
-		} else if (m_viewCur == VIEW_MAIN_MENU) {
-			m_viewMainMenu.onBackPressed();
-			return;
-		} else {
-			if (backPressedTime + backDoublePressedInterval > System.currentTimeMillis()) {
-				close();
-				backToast.cancel();
-				return;
-			} else {
-				backToast = Toast.makeText(getBaseContext(), m_str_tap_again_to_exit, Toast.LENGTH_SHORT);
-				backToast.show();
-			}
-			backPressedTime = System.currentTimeMillis();
+
+		switch (m_viewCur) {
+			case VIEW_GAME:
+				m_viewGame.onBackPressed();
+				break;
+			case VIEW_MAIN_MENU:
+				m_viewMainMenu.onBackPressed();
+				break;
+			case VIEW_INTRO:
+				m_viewIntro.onBackPressed();
+				break;
+			case VIEW_SETTINGS:
+				m_viewSettings.onBackPressed();
+				break;
+			default:
+				doubleclickToClose();
 		}
+
+
+
 	}
 
 	// обработка системной кнопки "Назад" - конец

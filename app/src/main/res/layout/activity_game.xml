@@ -116,7 +116,6 @@
                 android:padding="10dp"
                 android:text="@string/give_up"
                 android:textColor="@color/Black"
-                android:t
                 android:textSize="18sp" />
 
 
