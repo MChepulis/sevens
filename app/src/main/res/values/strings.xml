@@ -11,8 +11,6 @@
 
     <string name="str_restart">Restart</string>
     <string name="str_score">Score</string>
-    <string name="str_moves">Moves</string>
-    <string name="str_total">Total</string>
     <string name="str_combo">Combo</string>
 
     <string name="tap_again_to_exit">Tap again to exit</string>
@@ -22,11 +20,14 @@
     <string name="watch_logo">About</string>
     <string name="game_spacer"></string>
     <string name="play">Play</string>
-    <string name="game_over">Game Over</string>
+
     <string name="settings_title">Settings</string>
     <string name="language">Language</string>
     <string name="settings">Settings</string>
     <string name="music">Music</string>
     <string name="sound">Sound</string>
+    <string name="game_over">Game Over</string>
+    <string name="try_again">Try again</string>
+    <string name="main_menu">Main Menu</string>
 
 </resources>

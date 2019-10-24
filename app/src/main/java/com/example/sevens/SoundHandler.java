@@ -61,6 +61,31 @@ public class SoundHandler {
         soundPool.play(jumpSound, SettingsHandler.getSoundVolume(),SettingsHandler.getSoundVolume(), 1, 0, 1.0f);
     }
 
+    public void playPuzzleRotateSound() {
+        if (soundPool == null)
+            return;
+    }
+
+    public void playPuzzleTouchSound() {
+        if (soundPool == null)
+            return;
+    }
+
+    public void playPuzzleDropSound() {
+        if (soundPool == null)
+            return;
+    }
+
+    public void playMergerSound() {
+        if (soundPool == null)
+            return;
+    }
+
+    public void playExplosionSound() {
+        if (soundPool == null)
+            return;
+    }
+
 
     public void pauseAllSound() {
         if (soundPool == null)

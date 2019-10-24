@@ -15,7 +15,7 @@ public class Hexagon extends View{
     public static final int STATE_EMPTY = 0;
     public static final int STATE_MAX = 7;
 
-    private static final int tmp_alpha = 0xCF;
+    private static final int tmp_alpha = 0xC0;
 
     /*Integer[] colorForState = {R.color.state_0, R.color.state_1, R.color.state_2, R.color.state_3,
             R.color.state_4, R.color.state_5, R.color.state_6,  R.color.state_7};
@@ -147,6 +147,8 @@ public class Hexagon extends View{
 
         canvas.drawPath(path, paintGraftFill);
     }
+
+    
     public void onDraw(Canvas canvas)
     {
         drawLikePath(canvas);

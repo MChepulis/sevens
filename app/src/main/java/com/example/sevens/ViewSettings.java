@@ -191,7 +191,7 @@ public class ViewSettings extends View {
     public void close()
     {
         stop();
-        m_app.returtToPrevView();
+        m_app.returnToPrevView();
         //m_app.setView(ActivityMain.VIEW_MAIN_MENU);
     }
 

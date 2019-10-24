@@ -215,10 +215,10 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		//soundBox.resume();
 		switch (m_viewCur) {
 			case VIEW_INTRO:
-				//m_viewIntro.resume();
+				m_viewIntro.resume();
 				break;
 			case VIEW_GAME:
-				//m_viewGame.resume();
+				m_viewGame.resume();
 				break;
 			case VIEW_MAIN_MENU:
 				m_viewMainMenu.resume();
@@ -237,10 +237,10 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		soundBox.pause();
 		switch (m_viewCur) {
 			case VIEW_INTRO:
-				//m_viewIntro.pause();
+				m_viewIntro.pause();
 				break;
 			case VIEW_GAME:
-				//m_viewGame.pause();
+				m_viewGame.pause();
 				break;
 			case VIEW_MAIN_MENU:
 				m_viewMainMenu.pause();
@@ -275,7 +275,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		super.onBackPressed();
 	}
 
-	public void returtToPrevView() {
+	public void returnToPrevView() {
 		if (m_viewPrev != -1) {
 			setView(m_viewPrev);
 		} else {
@@ -312,8 +312,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 				m_viewMainMenu.onBackPressed();
 				break;
 			case VIEW_INTRO:
-				//m_viewIntro.onBackPressed();
-				doubleclickToClose();
+				m_viewIntro.onBackPressed();
 				break;
 			case VIEW_SETTINGS:
 				m_viewSettings.onBackPressed();

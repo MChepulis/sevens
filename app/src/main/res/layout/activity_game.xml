@@ -84,6 +84,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/game_bot2_layout"
             android:layout_width="match_parent"
@@ -91,21 +92,33 @@
             android:layout_weight="1.825"
             android:gravity="center"
             android:padding="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
 
             <ImageView
                 android:id="@+id/game_trash_bin"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                android:layout_weight="0.25"/>
 
             <Button
                 android:id="@+id/game_staff_only"
-                android:layout_width="match_parent"
+                android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:text="Staff Only"
-                android:textColor="@color/Black"/>
+                android:textColor="@color/Black"
+                android:layout_weight="0.5"
+                android:visibility="invisible"/>
+
+            <ImageView
+                android:id="@+id/game_hammer"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:src="@mipmap/ic_launcher"
+                android:visibility="invisible"/>
 
 
         </LinearLayout>
@@ -183,14 +196,14 @@
                         android:id="@+id/game_over_btn_try_again"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Try again">
+                        android:text="@string/try_again">
                     </Button>
 
                     <Button
                         android:id="@+id/game_over_btn_main_menu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Main Menu">
+                        android:text="@string/main_menu">
                     </Button>
                 </LinearLayout>
 
@@ -204,15 +217,6 @@
                 android:orientation="vertical"
                 android:layout_weight="0.25">
             </LinearLayout>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:orientation="vertical"
-            android:layout_weight="0.25"
-            android:gravity="center">
         </LinearLayout>
 
 

@@ -23,5 +23,9 @@
     <string name="settings_title">Настройки</string>
     <string name="language">Язык</string>
     <string name="settings">Настроки</string>
-
+    <string name="music">Музыка</string>
+    <string name="sound">Звуки</string>
+    <string name="game_over">Конец игры</string>
+    <string name="try_again">Заново</string>
+    <string name="main_menu">В главное меню</string>
 </resources>
