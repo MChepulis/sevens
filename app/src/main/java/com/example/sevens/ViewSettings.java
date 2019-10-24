@@ -1,6 +1,5 @@
 package com.example.sevens;
 
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -16,25 +15,26 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-class MenuRefreshHandler extends Handler
+class SettingsRefreshHandler extends Handler
 {
-    ViewMainMenu	m_viewMainMenu;
+    ViewSettings m_viewSettings;
 
 
-    public MenuRefreshHandler(ViewMainMenu v)
+    public SettingsRefreshHandler(ViewSettings v)
     {
-        m_viewMainMenu = v;
+        m_viewSettings = v;
     }
 
     public void handleMessage(Message msg)
     {
-        m_viewMainMenu.update();
-        m_viewMainMenu.invalidate();
+        m_viewSettings.update();
+        m_viewSettings.invalidate();
     }
 
     public void sleep(long delayMillis)
@@ -42,12 +42,13 @@ class MenuRefreshHandler extends Handler
         this.removeMessages(0);
         sendMessageDelayed(obtainMessage(0), delayMillis);
     }
+
     public void stop() {
         this.removeMessages(0);
     }
 };
 
-public class ViewMainMenu extends View {
+public class ViewSettings extends View {
 
     // CONST
     private static final int UPDATE_TIME_MS = 30;
@@ -59,9 +60,16 @@ public class ViewMainMenu extends View {
     private int m_scrW, m_scrH;
     private int m_scrCenterX, m_scrCenterY;
     private ImageView background;
+    private ViewSoundButton sound;
+    private ViewMusicButton music;
+    private Button backButton;
+    private TextView title;
+
+    private Button for_stuff;
+    boolean flag = true;
 
 
-    public ViewMainMenu(ActivityMain app)
+    public ViewSettings(ActivityMain app)
     {
         super(app);
         m_app = app;
@@ -69,60 +77,88 @@ public class ViewMainMenu extends View {
         m_isActive 	= false;
         setOnTouchListener(app);
 
-        Button start = (Button) m_app.findViewById(R.id.main_btn_start);
-        start.setOnClickListener(new View.OnClickListener() {
+        backButton = m_app.findViewById(R.id.settings_back_button);
+        background = m_app.findViewById(R.id.settings_background);
+        sound = m_app.findViewById(R.id.settings_sound);
+        music = m_app.findViewById(R.id.settings_music);
+        title = m_app.findViewById(R.id.settings_title);
+        for_stuff = m_app.findViewById(R.id.settings_for_Stuff);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("StartPressed");
-                m_app.setView(ActivityMain.VIEW_GAME);
+                System.out.println("backButton Pressed");
+                close();
             }
         });
 
-        Button goto_Logo = (Button) m_app.findViewById(R.id.main_btn_toLogo);
-        goto_Logo.setOnClickListener(new View.OnClickListener() {
+        sound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("goto_Logo Pressed");
-                m_app.setView(ActivityMain.VIEW_INTRO);
-            }
-        });
-
-        Button goto_Settings = (Button) m_app.findViewById(R.id.main_btn_toSettings);
-        goto_Settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("goto_Settings Pressed");
-                m_app.setView(ActivityMain.VIEW_SETTINGS);
+                sound.onClick(v);
             }
         });
 
 
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                music.onClick(v);
+            }
+        });
 
+
+        for_stuff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("flag = " + flag);
+
+                if(flag) {
+                    //m_app.soundBox.resumeBackSound();
+                    m_app.soundBox.playJumpSound();
+                   // m_app.soundBox.resumeAllSound();
+                }
+
+                else {
+                    m_app.soundBox.pauseAllSound();
+                    //m_app.soundBox.pauseBackSound();
+                }
+
+                flag = !flag;
+            }
+        });
     }
 
     public void start()
     {
+        m_app.soundBox.playBackSound();
         m_isActive 	= true;
+        System.out.println("Settings start()");
         //m_handler.sleep(UPDATE_TIME_MS);
     }
     public void stop()
     {
+        System.out.println("Settings stop");
+        m_app.soundBox.pauseBackSound();
         m_isActive 	= false;
         //m_handler.sleep(UPDATE_TIME_MS);
     }
 
     public void pause()
     {
+        System.out.println("Settings pause");
         m_isActive 	= false;
-        //m_handler.stop();
+        m_app.soundBox.pauseBackSound();
+        //m_handler.sleep(UPDATE_TIME_MS);
     }
 
     public void resume()
     {
+        System.out.println("Settings resume");
         m_isActive 	= true;
+        m_app.soundBox.resumeBackSound();
         //m_handler.sleep(UPDATE_TIME_MS);
     }
-
 
     public boolean onTouch(int x, int y, int evtType)
     {
@@ -146,30 +182,23 @@ public class ViewMainMenu extends View {
         return b;
     }
 
-    public Boolean flag = true;
     public void onDraw(Canvas canvas)  /// нужно ли оно сейчас?
     {
         System.out.println("MainMenu onDraw");
 
     }
 
+    public void close()
+    {
+        stop();
+        m_app.returtToPrevView();
+        //m_app.setView(ActivityMain.VIEW_MAIN_MENU);
+    }
+
     // обработка системной кнопки "Назад" - начало
-    private long backPressedTime;
-    private long backDoublePressedInterval = 2000;
-    private Toast backToast;
     public void onBackPressed() {
-        if(backPressedTime + backDoublePressedInterval > System.currentTimeMillis())
-        {
-            m_app.close();
-            backToast.cancel();
-            return;
-        }
-        else
-        {
-            backToast = Toast.makeText(m_app.getBaseContext(), R.string.tap_again_to_exit, Toast.LENGTH_SHORT);
-            backToast.show();
-        }
-        backPressedTime = System.currentTimeMillis();
+        close();
+        return;
     }
 
     // обработка системной кнопки "Назад" - конец
