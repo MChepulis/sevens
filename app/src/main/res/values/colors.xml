@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#664F6B</color>
     <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorMainBackGround">#3F3F3F</color>
+    <color name="colorFrame">#808080</color>
     <color name="colorAccent">#D81B60</color>
     <color name="whiteCC">#CCFFFFFF</color>
     <color name="game_spacer">#CCFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="Black">#FF000000</color>
+    <color name="White">#FFFFFF</color>
     <color name="state_0">#FF000000</color>
     <color name="state_1">#FFEB4F34</color>
     <color name="state_2">#FFEB7D34</color>

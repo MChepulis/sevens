@@ -23,5 +23,7 @@
     <string name="game_spacer"></string>
     <string name="play">Play</string>
     <string name="game_over">Game Over</string>
+    <string name="menu">Main Menu</string>
+    <string name="give_up">End Game</string>
 
 </resources>
