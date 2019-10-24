@@ -7,6 +7,7 @@
     <color name="game_spacer">#CCFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="Black">#FF000000</color>
+    <color name="blackFF">#FF000000</color>
     <color name="state_0">#FF000000</color>
     <color name="state_1">#FFEB4F34</color>
     <color name="state_2">#FFEB7D34</color>
