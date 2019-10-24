@@ -15,13 +15,24 @@ public class Hexagon extends View{
     public static final int STATE_EMPTY = 0;
     public static final int STATE_MAX = 7;
 
-    private static final int tmp_alpha = 0xCF;
+    private static final int tmp_alpha = 0xC0;
 
     /*Integer[] colorForState = {R.color.state_0, R.color.state_1, R.color.state_2, R.color.state_3,
             R.color.state_4, R.color.state_5, R.color.state_6,  R.color.state_7};
 */
-    Integer[] colorForState = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN,
-            Color.BLUE, Color.MAGENTA, Color.WHITE};
+    int state_0 = Color.argb(255, 0, 0, 0);
+    int state_1 = Color.argb(255, 176, 0, 0);
+    int state_2 = Color.argb(255, 255, 117, 20);
+    int state_3 = Color.argb(255, 255, 220, 51);
+    int state_4 = Color.argb(255, 0, 128, 0);
+    int state_5 = Color.argb(255, 66, 170, 255);
+    int state_6 = Color.argb(255, 0, 71, 171);
+    int state_7 = Color.argb(255, 83, 55, 122);
+    int state_8 = Color.argb(255, 255, 255, 255);
+    /*Integer[] colorForState = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN,
+            Color.BLUE, Color.MAGENTA, Color.WHITE}; */
+    Integer[] colorForState = {state_0, state_1, state_2, state_3, state_4, state_5,
+            state_6, state_7, state_8};
 
     private float radius;
     private Integer color;
@@ -147,6 +158,8 @@ public class Hexagon extends View{
 
         canvas.drawPath(path, paintGraftFill);
     }
+
+    
     public void onDraw(Canvas canvas)
     {
         drawLikePath(canvas);

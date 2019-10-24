@@ -92,7 +92,7 @@ public class ViewGame extends View {
 	LinearLayout game_over_button_layout;
 
 
-	Button back;
+	ImageView back;
 
 	ImageView trash_bin;
 	ImageView background;
@@ -117,7 +117,7 @@ public class ViewGame extends View {
 		isNeedGenerateNewPuzzle = true;
 
 
-		back = (Button) m_app.findViewById(R.id.game_btn_back);
+		back = (ImageView) m_app.findViewById(R.id.game_btn_back);
 		back.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -227,7 +227,7 @@ public class ViewGame extends View {
 		isNeedGenerateNewPuzzle = true;
 	}
 
-	// FIXME нужно сделать болле интересный генератор
+	// FIXME нужно сделать более интересный генератор
 	private int getNewState()
 	{
 		Random rand = new Random();
@@ -425,7 +425,7 @@ public class ViewGame extends View {
 		puzzle.setEnabled(true);
 		back.setEnabled(true);
 		trash_bin.setEnabled(true);
-		start();
+		m_handler.start();
 	}
 
 
