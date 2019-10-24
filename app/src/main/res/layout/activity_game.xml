@@ -206,7 +206,7 @@
                         android:layout_margin="10dp"
                         android:background="@drawable/btn_blue_darkblue_violet"
                         android:padding="10dp"
-                        android:text="@string/menu"
+                        android:text="@string/main_menu"
                         android:textSize="20sp"></Button>
                 </LinearLayout>
 

@@ -59,10 +59,9 @@ public class ViewSettings extends View {
 
     private int m_scrW, m_scrH;
     private int m_scrCenterX, m_scrCenterY;
-    private ImageView background;
     private ViewSoundButton sound;
     private ViewMusicButton music;
-    private Button backButton;
+    private ImageView backButton;
     private TextView title;
 
     private Button for_stuff;
@@ -78,7 +77,6 @@ public class ViewSettings extends View {
         setOnTouchListener(app);
 
         backButton = m_app.findViewById(R.id.settings_back_button);
-        background = m_app.findViewById(R.id.settings_background);
         sound = m_app.findViewById(R.id.settings_sound);
         music = m_app.findViewById(R.id.settings_music);
         title = m_app.findViewById(R.id.settings_title);

@@ -19,7 +19,9 @@
     <string name="back">Назад</string>
     <string name="watch_logo">Авторы</string>
     <string name="game_spacer"></string>
-    <string name="play">Play</string>
+    <string name="play">Играть</string>
+    <string name="menu">Меню</string>
+    <string name="give_up">Закончить игру</string>
     <string name="settings_title">Настройки</string>
     <string name="language">Язык</string>
     <string name="settings">Настроки</string>
