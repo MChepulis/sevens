@@ -62,6 +62,8 @@ public class ViewMainMenu extends View {
     private int m_scrW, m_scrH;
     private int m_scrCenterX, m_scrCenterY;
     private ImageView background;
+    ViewSoundButton sound;
+    ViewMusicButton music;
 
 
     public ViewMainMenu(ActivityMain app)
@@ -77,6 +79,7 @@ public class ViewMainMenu extends View {
             @Override
             public void onClick(View v) {
                 System.out.println("StartPressed");
+                stop();
                 m_app.setView(ActivityMain.VIEW_GAME);
             }
         });
@@ -86,6 +89,7 @@ public class ViewMainMenu extends View {
             @Override
             public void onClick(View v) {
                 System.out.println("goto_Logo Pressed");
+                stop();
                 m_app.setView(ActivityMain.VIEW_INTRO);
             }
         });
@@ -95,7 +99,24 @@ public class ViewMainMenu extends View {
             @Override
             public void onClick(View v) {
                 System.out.println("goto_Settings Pressed");
+                stop();
                 m_app.setView(ActivityMain.VIEW_SETTINGS);
+            }
+        });
+
+        sound = m_app.findViewById(R.id.main_menu_sound_btn);
+        sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sound.onClick(v);
+            }
+        });
+
+        music = m_app.findViewById(R.id.main_menu_music_btn);
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                music.onClick(v);
             }
         });
 
@@ -107,24 +128,29 @@ public class ViewMainMenu extends View {
     {
         m_isActive 	= true;
         m_handler.start();
+        m_app.soundBox.playBackSound();
         //m_handler.sleep(UPDATE_TIME_MS);
     }
     public void stop()
     {
         m_isActive 	= false;
         m_handler.stop();
+        m_app.soundBox.pauseBackSound();
         //m_handler.sleep(UPDATE_TIME_MS);
     }
 
     public void pause()
     {
         m_isActive 	= false;
-        //m_handler.stop();
+        m_app.soundBox.pauseBackSound();
+        m_handler.stop();
     }
 
     public void resume()
     {
         m_isActive 	= true;
+        m_handler.start();
+        m_app.soundBox.resumeBackSound();
         //m_handler.sleep(UPDATE_TIME_MS);
     }
 
@@ -164,6 +190,7 @@ public class ViewMainMenu extends View {
     public void onBackPressed() {
         if(backPressedTime + backDoublePressedInterval > System.currentTimeMillis())
         {
+            stop();
             m_app.close();
             backToast.cancel();
             return;

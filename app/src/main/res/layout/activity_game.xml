@@ -47,13 +47,14 @@
                 android:layout_weight="0.4"
                 android:weightSum="1.0"
                 android:gravity="center_vertical">
+
                 <com.example.sevens.ViewSoundButton
                     android:id="@+id/game_sound_btn"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
-                    android:layout_weight="0.5">
-                </com.example.sevens.ViewSoundButton>
+                    android:layout_weight="0.5"></com.example.sevens.ViewSoundButton>
+
                 <com.example.sevens.ViewMusicButton
                     android:id="@+id/game_music_btn"
                     android:layout_width="0px"
