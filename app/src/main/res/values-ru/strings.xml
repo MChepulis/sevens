@@ -33,4 +33,6 @@
     <string name="game_over">Конец игры</string>
     <string name="try_again">Заново</string>
     <string name="main_menu">В главное меню</string>
+    <string name="score">Очки: </string>
+    <string name="high_score">Рекорд: </string>
 </resources>

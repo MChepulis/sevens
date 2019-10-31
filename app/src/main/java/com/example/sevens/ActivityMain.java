@@ -43,9 +43,9 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 	ViewIntro m_viewIntro;
 	ViewGame m_viewGame;
 	ViewMainMenu m_viewMainMenu;
-	ViewSettings m_viewSettings;
 	SoundHandler soundBox;
 	SettingsHandler settings;
+	BitmapBank bitmapBank;
 
 	private long backPressedTime;
 	private long backDoublePressedInterval = 2000;
@@ -107,6 +107,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 
 		soundBox = new SoundHandler(this);
 		settings = new SettingsHandler(this);
+		bitmapBank = new BitmapBank(this);
 		System.out.println(soundBox);
 		setView(VIEW_INTRO);
 
@@ -138,12 +139,6 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 				m_viewMainMenu = new ViewMainMenu(this);
 				m_viewMainMenu.start();
 				Log.d("THREE", "Switch to m_viewMainMenu");
-				break;
-			case VIEW_SETTINGS:
-				setContentView(R.layout.settings_menu);
-				m_viewSettings = new ViewSettings(this);
-				m_viewSettings.start();
-				Log.d("THREE", "Switch tom_viewSettings");
 				break;
 		}
 	}
@@ -184,8 +179,6 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			return m_viewGame.onTouch(x, y, touchType);
 		if (m_viewCur == VIEW_MAIN_MENU)
 			return m_viewMainMenu.onTouch(x, y, touchType);
-		if (m_viewCur == VIEW_SETTINGS)
-			return m_viewSettings.onTouch(x, y, touchType);
 		{
 
 		}
@@ -223,9 +216,6 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			case VIEW_MAIN_MENU:
 				m_viewMainMenu.resume();
 				break;
-			case VIEW_SETTINGS:
-				m_viewSettings.resume();
-				break;
 		}
 		//Log.d("THREE", "App onResume");
 	}
@@ -244,9 +234,6 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 				break;
 			case VIEW_MAIN_MENU:
 				m_viewMainMenu.pause();
-				break;
-			case VIEW_SETTINGS:
-				m_viewSettings.pause();
 				break;
 		}
 
@@ -313,9 +300,6 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 				break;
 			case VIEW_INTRO:
 				m_viewIntro.onBackPressed();
-				break;
-			case VIEW_SETTINGS:
-				m_viewSettings.onBackPressed();
 				break;
 			default:
 				doubleclickToClose();

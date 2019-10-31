@@ -13,6 +13,9 @@ public class SettingsHandler {
     private static boolean isSoundOn = true;
     private static boolean isMusicOn = true;
     private static int language = 0;
+    private static int score = 0;
+    private static int high_score = 0;
+
 
 
     public static void setMusicVolume(float new_value) {
@@ -45,6 +48,13 @@ public class SettingsHandler {
 
     }
 
+    public static void setScore(int new_score) {
+        score = new_score;
+    }
+    public static void setHighScore(int new_score) {
+        high_score = new_score;
+    }
+
 
     public static float getMusicVolume() {
         if(isMusicOn)
@@ -68,6 +78,12 @@ public class SettingsHandler {
     }
     public static boolean getIsMusicOn() {
         return isMusicOn;
+    }
+    public static int getScore() {
+        return score;
+    }
+    public static int getHighScore() {
+        return high_score;
     }
 
 }

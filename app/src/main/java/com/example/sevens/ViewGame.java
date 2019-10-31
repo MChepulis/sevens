@@ -90,12 +90,14 @@ public class ViewGame extends View {
 	Button staff_only_btn;
 	LinearLayout game_over_text_layout;
 	LinearLayout game_over_button_layout;
-
-
+	TextView score_text;
+	TextView high_score_text;
 	ImageView back;
-
 	ImageView trash_bin;
+	ViewHammerButton hammer;
 	ImageView background;
+	ViewSoundButton sound;
+	ViewMusicButton music;
 
 	HexagonGrid hexGrid;
 	HexagonGrid puzzle;
@@ -116,24 +118,6 @@ public class ViewGame extends View {
 		setOnTouchListener(app);
 		isNeedGenerateNewPuzzle = true;
 
-
-		back = (ImageView) m_app.findViewById(R.id.game_btn_back);
-		back.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				System.out.println("Game backPressed");
-				closeMessage();
-			}
-		});
-
-		trash_bin = (ImageView) m_app.findViewById(R.id.game_trash_bin);
-		trash_bin.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				setNeedGenerateNewPuzzle();
-				//GameOver();
-			}
-		});
 		L_main_layout = m_app.findViewById(R.id.game_main_layout);
 		top_layout = m_app.findViewById(R.id.game_top_layout);
 		mid_layout = m_app.findViewById(R.id.game_middle_layout);
@@ -147,6 +131,53 @@ public class ViewGame extends View {
 		game_over_text_layout =  m_app.findViewById(R.id.game_over_text_layout);
 		game_over_button_layout =  m_app.findViewById(R.id.game_over_button_layout);
 		staff_only_btn = m_app.findViewById(R.id.game_staff_only);
+		hammer = m_app.findViewById(R.id.game_hammer);
+		trash_bin = (ImageView) m_app.findViewById(R.id.game_trash_bin);
+		back = (ImageView) m_app.findViewById(R.id.game_btn_back);
+		score_text = m_app.findViewById(R.id.game_score_text);
+		high_score_text = m_app.findViewById(R.id.game_high_score_text);
+		sound = m_app.findViewById(R.id.game_sound_btn);
+		music = m_app.findViewById(R.id.game_music_btn);
+
+		sound.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				sound.onClick(v);
+			}
+		});
+
+		music.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				music.onClick(v);
+			}
+		});
+
+		back.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				System.out.println("Game backPressed");
+				closeMessage();
+				hammer.off();
+			}
+		});
+
+		trash_bin.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setNeedGenerateNewPuzzle();
+				hammer.off();
+				//GameOver();
+			}
+		});
+
+		hammer.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				hammer.onClick(v);
+				//GameOver();
+			}
+		});
 
 		game_over_btn_main_menu.setOnClickListener( new View.OnClickListener(){
 			@Override
@@ -178,6 +209,13 @@ public class ViewGame extends View {
 		hexGrid.deleteHex(0, 4);
 		hexGrid.deleteHex(4, 0);
 		hexGrid.deleteHex(4, 4);
+		hexGrid.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent evt) {
+				return hexGrid.onTouch(v, evt);
+			}
+		});
+		hammer.setHexGrid(hexGrid);
 		mid_layout.addView(hexGrid);
 		dragListener = new HexGridDragDropDragListener(m_app.getApplicationContext());
 		dragListener.registeredCallBackFunk(new Function<Void, Void>() {
@@ -199,6 +237,7 @@ public class ViewGame extends View {
 		hexGrid.synchronizeRadius(puzzle);
 		puzzle.synchronizeRadius(hexGrid);
 		puzzle.setOnTouchListener(new HexGridDragDropOnTouchListener());
+
 	}
 
 
@@ -320,6 +359,7 @@ public class ViewGame extends View {
 
 	private void openGameOverDialog()
 	{
+		hammer.off();
 		game_over_layout.setVisibility(VISIBLE);
 		pause();
 		flag1 = false;
@@ -346,10 +386,14 @@ public class ViewGame extends View {
 
 	}
 	private void init() {
+		high_score_text.setText("" + SettingsHandler.getHighScore());
+		score_text.setText("" + SettingsHandler.getScore());
+		m_app.soundBox.playBackSound();
 	}
 
 	private void gameRestart() {
 		hexGrid.RefreshAllHexagonsState();
+		resetScore();
 
 		isNeedGenerateNewPuzzle = true;
 		generatePuzzle();
@@ -406,6 +450,23 @@ public class ViewGame extends View {
 		backPressedTime = System.currentTimeMillis();
 	}
 
+	private void resetScore() {
+		score_text.setText("" + 0);
+		hexGrid.setScore(0);
+		SettingsHandler.setScore(0);
+	}
+	private void updateScore() {
+		int cur_score = hexGrid.getScore();
+		int high_score = SettingsHandler.getHighScore();
+		SettingsHandler.setScore(cur_score);
+		score_text.setText("" + cur_score);
+		if (cur_score > high_score) {
+			high_score = cur_score;
+			SettingsHandler.setHighScore(high_score);
+			high_score_text.setText("" + high_score);
+		}
+	}
+
 	// обработка системной кнопки "Назад" - начало
 	public void onBackPressed() {
 		closeMessage();
@@ -418,6 +479,7 @@ public class ViewGame extends View {
 		back.setEnabled(false);
 		trash_bin.setEnabled(false);
 		m_handler.stop();
+		m_app.soundBox.pauseBackSound();
 	}
 
 	public void resume() {
@@ -426,6 +488,7 @@ public class ViewGame extends View {
 		back.setEnabled(true);
 		trash_bin.setEnabled(true);
 		m_handler.start();
+		m_app.soundBox.resumeBackSound();
 	}
 
 
@@ -433,7 +496,6 @@ public class ViewGame extends View {
 		System.out.println("Game start");
 		m_isActive = true;
 		m_handler.start();
-
 		init();
 		//m_handler.sleep(UPDATE_TIME_MS);
 	}
@@ -441,7 +503,8 @@ public class ViewGame extends View {
 	public void stop() {
 		System.out.println("Game stop");
 		m_handler.stop();
-		m_isActive = false;  //?????????????????????????????????????????
+		m_isActive = false;//?????????????????????????????????????????
+		m_app.soundBox.pauseBackSound();
 		//m_handler.sleep(UPDATE_TIME_MS);
 	}
 
@@ -454,6 +517,7 @@ public class ViewGame extends View {
 			if(isNeedGenerateNewPuzzle) {
 				generatePuzzle();
 			}
+			updateScore();
 			m_handler.sleep(UPDATE_TIME_MS);
 		}
 	}
@@ -472,8 +536,8 @@ public class ViewGame extends View {
 		@Override
 		public boolean onTouch(View view, MotionEvent motionEvent) {
 
-
-			System.out.println("event " + motionEvent.getAction());
+			hammer.off();
+			//System.out.println("event " + motionEvent.getAction());
 			if (motionEvent.getAction() == motionEvent.ACTION_DOWN) {
 
 				// Create drag shadow builder object.
@@ -486,7 +550,7 @@ public class ViewGame extends View {
 
 				((HexagonGrid) view).dragTouchCoord_x = tmp_x;
 				((HexagonGrid) view).dragTouchCoord_y = tmp_y ;
-				System.out.println(motionEvent.getX() + " " + motionEvent.getY());
+				//System.out.println(motionEvent.getX() + " " + motionEvent.getY());
 				((HexagonGrid) view).isDragTouchCoordSet = true;
 			}
 			if (motionEvent.getAction() == motionEvent.ACTION_UP) {

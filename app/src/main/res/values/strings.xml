@@ -32,5 +32,7 @@
     <string name="music">Music</string>
     <string name="sound">Sounds</string>
     <string name="try_again">Res</string>
+    <string name="score">Score: </string>
+    <string name="high_score">High score: </string>
 
 </resources>
