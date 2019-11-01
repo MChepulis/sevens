@@ -879,10 +879,67 @@ public class HexagonGrid extends View {
                 break;
             default:
                 multiplier = 1;
-
         }
 
         m_score += multiplier * state;
-        System.out.println("score = " + m_score);
+    }
+
+    public String getSavedString(){
+        Hexagon cur_hex;
+        String result = "";
+        int state;
+        boolean exist_flag;
+        for (int i = 0; i < m_hexagons.size(); i++) {
+            for (int j = 0; j < m_hexagons.get(i).size(); j++) {
+                cur_hex = m_hexagons.get(i).get(j);
+                state = cur_hex.getState();
+                exist_flag = cur_hex.isExist();
+                if( !result.equals("") )
+                    result = result + "-";
+                result = result + "(" + Integer.toString(state) + ", " + Boolean.toString(exist_flag) + ")";
+            }
+        }
+        result = result + "";
+        //System.out.println(result);
+        return result;
+    }
+
+    public void setStateFromString(String src_)
+    {
+        if(src_.equals(""))
+            return;
+
+        String src = src_.replaceAll("\\s","");
+
+        String[] elems;
+        ArrayList<Integer> intArr = new ArrayList<>();
+        ArrayList<Boolean> isExistArr = new ArrayList<>();
+
+        String intElem;
+        String boolElem;
+        System.out.println("src = " + src);
+        for (String retval : src.split("-")) {
+            elems = retval.split(",");
+            System.out.println("retval = " + retval);
+            System.out.println("elems = " + elems[0]);
+            System.out.println("length = " + elems.length);
+            intElem = elems[0].replaceAll("\\p{P}",""); // адалим все скобки и пробельные символы
+            boolElem = elems[1].replaceAll("\\p{P}","");
+            intArr.add(Integer.parseInt(intElem));
+            isExistArr.add(Boolean.parseBoolean(boolElem));
+        }
+        System.out.println("length = " + isExistArr.size());
+
+        int k = 0;
+        Hexagon cur_hex;
+        for (int i = 0; i < m_hexagons.size(); i++) {
+            for (int j = 0; j < m_hexagons.get(i).size(); j++) {
+                cur_hex = m_hexagons.get(i).get(j);
+                cur_hex.setState(intArr.get(k));
+                cur_hex.setExist(isExistArr.get(k));
+                k++;
+            }
+        }
+        invalidate();
     }
 }

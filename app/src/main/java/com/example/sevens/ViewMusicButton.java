@@ -12,9 +12,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 public class ViewMusicButton extends AppCompatImageButton {
 
     public static final int RETURN_TOUCH_OFFSET = 5;
-
     private ActivityMain m_app;
-
     private boolean inside;
     private boolean isOn;
 

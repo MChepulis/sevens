@@ -75,6 +75,7 @@ public class ViewHammerButton extends AppCompatImageButton {
     public void done(){
         isOn = false;
         resetHexGridHammerState();
+        SettingsHandler.setHexGridStr(hexGrid.getSavedString());
         this.invalidate();
     }
 

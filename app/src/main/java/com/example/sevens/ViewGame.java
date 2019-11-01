@@ -258,7 +258,7 @@ public class ViewGame extends View {
 		}
 		puzzle.OnCenter();
 		rotateCount = (rotateCount + 1) % 3;
-		System.out.println("rotateCount " + rotateCount);
+		//System.out.println("rotateCount " + rotateCount);
 	}
 
 
@@ -296,6 +296,7 @@ public class ViewGame extends View {
 	}
 	private void generatePuzzle() {
 
+		puzzle.setVisibility(INVISIBLE);
 		isNeedGenerateNewPuzzle = false;
 		puzzle.clearTrimedArr();
 
@@ -351,6 +352,7 @@ public class ViewGame extends View {
 			cur_order = (cur_order + 1) % 3;
 		}
 		puzzle.OnCenter();
+		puzzle.setVisibility(VISIBLE);
 		puzzle.invalidate();
 	}
 
@@ -388,15 +390,19 @@ public class ViewGame extends View {
 	private void init() {
 		high_score_text.setText("" + SettingsHandler.getHighScore());
 		score_text.setText("" + SettingsHandler.getScore());
+		hexGrid.setScore(SettingsHandler.getScore());
 		m_app.soundBox.playBackSound();
+		hexGrid.setStateFromString(SettingsHandler.getHexGridStr());
+		puzzle.setStateFromString(SettingsHandler.getPuzzleStr());
 	}
 
 	private void gameRestart() {
 		hexGrid.RefreshAllHexagonsState();
 		resetScore();
-
 		isNeedGenerateNewPuzzle = true;
 		generatePuzzle();
+		SettingsHandler.setHexGridStr(hexGrid.getSavedString());
+		SettingsHandler.setPuzzleStr(puzzle.getSavedString());
 	}
 
 	public boolean performClick() {
@@ -457,6 +463,8 @@ public class ViewGame extends View {
 	}
 	private void updateScore() {
 		int cur_score = hexGrid.getScore();
+		if(cur_score == SettingsHandler.getScore() )
+			return;
 		int high_score = SettingsHandler.getHighScore();
 		SettingsHandler.setScore(cur_score);
 		score_text.setText("" + cur_score);
@@ -480,6 +488,8 @@ public class ViewGame extends View {
 		trash_bin.setEnabled(false);
 		m_handler.stop();
 		m_app.soundBox.pauseBackSound();
+		SettingsHandler.setPuzzleStr(puzzle.getSavedString());
+		SettingsHandler.setHexGridStr(hexGrid.getSavedString());
 	}
 
 	public void resume() {
@@ -489,6 +499,8 @@ public class ViewGame extends View {
 		trash_bin.setEnabled(true);
 		m_handler.start();
 		m_app.soundBox.resumeBackSound();
+		hexGrid.setStateFromString(SettingsHandler.getHexGridStr());
+		puzzle.setStateFromString(SettingsHandler.getPuzzleStr());
 	}
 
 
@@ -505,6 +517,8 @@ public class ViewGame extends View {
 		m_handler.stop();
 		m_isActive = false;//?????????????????????????????????????????
 		m_app.soundBox.pauseBackSound();
+		SettingsHandler.setPuzzleStr(puzzle.getSavedString());
+		SettingsHandler.setHexGridStr(hexGrid.getSavedString());
 		//m_handler.sleep(UPDATE_TIME_MS);
 	}
 
@@ -516,6 +530,8 @@ public class ViewGame extends View {
 		if (m_isActive) {
 			if(isNeedGenerateNewPuzzle) {
 				generatePuzzle();
+				//SettingsHandler.setPuzzleStr(puzzle.getSavedString());
+				//SettingsHandler.setHexGridStr(hexGrid.getSavedString());
 			}
 			updateScore();
 			m_handler.sleep(UPDATE_TIME_MS);
