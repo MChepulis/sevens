@@ -20,7 +20,8 @@
     <string name="game_back_toast_text">Tap again to go main menu</string>
     <string name="start">Start</string>
     <string name="back">Back</string>
-    <string name="watch_logo">About</string>
+    <string name="help">Help</string>
+    <string name="authors">Authors</string>
     <string name="game_spacer"></string>
     <string name="play">Play</string>
     <string name="game_over">Game Over</string>
@@ -34,5 +35,7 @@
     <string name="try_again">Res</string>
     <string name="score">Score: </string>
     <string name="high_score">High score: </string>
+
+    <string name="help_info">file:///android_asset/help_eng.html</string>
 
 </resources>

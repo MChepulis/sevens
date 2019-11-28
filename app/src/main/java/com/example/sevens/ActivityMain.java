@@ -30,7 +30,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 	public static final int VIEW_INTRO = 0;
 	public static final int VIEW_GAME = 1;
 	public static final int VIEW_MAIN_MENU = 2;
-	public static final int VIEW_SETTINGS = 3;
+	public static final int VIEW_HELP = 3;
 
 
 	// *************************************************
@@ -43,6 +43,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 	ViewIntro m_viewIntro;
 	ViewGame m_viewGame;
 	ViewMainMenu m_viewMainMenu;
+	ViewHelp m_viewHelp;
 	SoundHandler soundBox;
 	SettingsHandler settings;
 	BitmapBank bitmapBank;
@@ -140,6 +141,13 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 				m_viewMainMenu.start();
 				Log.d("THREE", "Switch to m_viewMainMenu");
 				break;
+			case VIEW_HELP:
+				setContentView(R.layout.activity_help);
+				m_viewHelp = new ViewHelp(this);
+				m_viewHelp.start();
+				Log.d("THREE", "Switch to m_viewHelp");
+				break;
+
 		}
 	}
 
@@ -179,9 +187,9 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			return m_viewGame.onTouch(x, y, touchType);
 		if (m_viewCur == VIEW_MAIN_MENU)
 			return m_viewMainMenu.onTouch(x, y, touchType);
-		{
+		if (m_viewCur == VIEW_HELP)
+			return m_viewHelp.onTouch(x, y, touchType);
 
-		}
 		return true;
 	}
 
@@ -216,6 +224,9 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			case VIEW_MAIN_MENU:
 				m_viewMainMenu.resume();
 				break;
+			case VIEW_HELP:
+				m_viewHelp.resume();
+				break;
 		}
 		//Log.d("THREE", "App onResume");
 	}
@@ -234,6 +245,9 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 				break;
 			case VIEW_MAIN_MENU:
 				m_viewMainMenu.pause();
+				break;
+			case VIEW_HELP:
+				m_viewHelp.pause();
 				break;
 		}
 
@@ -300,6 +314,9 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 				break;
 			case VIEW_INTRO:
 				m_viewIntro.onBackPressed();
+				break;
+			case VIEW_HELP:
+				m_viewHelp.onBackPressed();
 				break;
 			default:
 				doubleclickToClose();

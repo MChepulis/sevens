@@ -1,25 +1,13 @@
 package com.example.sevens;
 
 
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 class MenuRefreshHandler extends Handler
 {
@@ -94,13 +82,13 @@ public class ViewMainMenu extends View {
             }
         });
 
-        Button goto_Settings = (Button) m_app.findViewById(R.id.main_btn_toSettings);
+        Button goto_Settings = (Button) m_app.findViewById(R.id.main_btn_toHelp);
         goto_Settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("goto_Settings Pressed");
+                System.out.println("goto_help Pressed");
                 stop();
-                m_app.setView(ActivityMain.VIEW_SETTINGS);
+                m_app.setView(ActivityMain.VIEW_HELP);
             }
         });
 

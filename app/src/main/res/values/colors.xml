@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#664F6B</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorMainBackGround">#3F3F3F</color>
+    <color name="colorMainBackGround">#232324</color>
     <color name="colorFrame">#808080</color>
     <color name="colorAccent">#D81B60</color>
     <color name="whiteCC">#CCFFFFFF</color>
@@ -11,12 +11,12 @@
     <color name="Black">#FF000000</color>
     <color name="White">#FFFFFF</color>
     <color name="state_0">#FF000000</color>
-    <color name="state_1">#FFEB4F34</color>
-    <color name="state_2">#FFEB7D34</color>
-    <color name="state_3">#FFEBB734</color>
-    <color name="state_4">#FF498742</color>
-    <color name="state_5">#FF42877C</color>
-    <color name="state_6">#FF426487</color>
-    <color name="state_7">#FF624287</color>
+    <color name="state_1">#FFf57f7f</color>
+    <color name="state_2">#FFf29a57</color>
+    <color name="state_3">#FFf5e464</color>
+    <color name="state_4">#FF64f56c</color>
+    <color name="state_5">#FF64f5eb</color>
+    <color name="state_6">#FF626cf0</color>
+    <color name="state_7">#FFb062f0</color>
 
 </resources>
