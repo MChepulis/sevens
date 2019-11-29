@@ -1,16 +1,22 @@
 package com.example.sevens;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Hexagon extends View{
+public class Hexagon extends View {
 
     public static final int STATE_EMPTY = 0;
     public static final int STATE_MAX = 7;
@@ -19,20 +25,32 @@ public class Hexagon extends View{
 
     /*Integer[] colorForState = {R.color.state_0, R.color.state_1, R.color.state_2, R.color.state_3,
             R.color.state_4, R.color.state_5, R.color.state_6,  R.color.state_7};
-*/
+
+     */
     int state_0 = Color.argb(255, 0, 0, 0);
-    int state_1 = Color.argb(255, 176, 0, 0);
-    int state_2 = Color.argb(255, 255, 117, 20);
-    int state_3 = Color.argb(255, 255, 220, 51);
-    int state_4 = Color.argb(255, 0, 128, 0);
-    int state_5 = Color.argb(255, 66, 170, 255);
-    int state_6 = Color.argb(255, 0, 71, 171);
-    int state_7 = Color.argb(255, 83, 55, 122);
+    int state_1 = Color.argb(255, 255, 0, 0); // red
+    int state_2 = Color.argb(255, 255, 165, 0); // orange
+    int state_3 = Color.argb(255, 255, 255, 0); // yellow
+    int state_4 = Color.argb(255, 19, 136, 8); //green
+    int state_5 = Color.argb(255, 66, 170, 255); //blue
+    int state_6 = Color.argb(255, 0, 0, 255); //indigo
+    int state_7 = Color.argb(255, 139, 0, 255); //violet
     int state_8 = Color.argb(255, 255, 255, 255);
-    /*Integer[] colorForState = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN,
+//
+//    int state_0 = Color.argb(255, 0, 0, 0);
+//    int state_1 = Color.argb(255, 176, 0, 0);
+//    int state_2 = Color.argb(255, 255, 117, 20);
+//    int state_3 = Color.argb(255, 255, 220, 51);
+//    int state_4 = Color.argb(255, 0, 128, 0);
+//    int state_5 = Color.argb(255, 66, 170, 255);
+//    int state_6 = Color.argb(255, 0, 71, 171);
+//    int state_7 = Color.argb(255, 83, 55, 122);
+//    int state_8 = Color.argb(255, 255, 255, 255);
+   /*Integer[] colorForState = {Color.BLACK, Color.RED, Color.YELLOW, Color.GREEN, Color.CYAN,
             Color.BLUE, Color.MAGENTA, Color.WHITE}; */
     Integer[] colorForState = {state_0, state_1, state_2, state_3, state_4, state_5,
             state_6, state_7, state_8};
+
 
     private float radius;
     private Integer color;
@@ -41,41 +59,91 @@ public class Hexagon extends View{
     private int state;
     private boolean isDoneFlag;
     private int tmp_state;
+    private boolean hammerState;
 
-    public void setIsDoneFlag( boolean new_value) { isDoneFlag = new_value;    }
+
+
+    public void setIsDoneFlag(boolean new_value) {
+        isDoneFlag = new_value;
+    }
+
     public void setColor(Integer color) {
         this.color = color;
     }
+
     public void setExist(Boolean isExist_) {
-        this.m_isExist= isExist_;
+        this.m_isExist = isExist_;
     }
-    public void setState(int newState) {state = newState; }
-    public void setTmpState(int  newState) {tmp_state = newState; }
+
+    public void setState(int newState) {
+        state = newState;
+    }
+
+    public void setTmpState(int newState) {
+        tmp_state = newState;
+    }
+
+    public void setHammerState(boolean newState) {
+        hammerState = newState;
+    }
 
 
-    public float getRadius(){return radius;}
-    public int getColor(){return  color;}
-    public Boolean isExist(){ return  m_isExist; }
-    public int getState() { return  state; }
-    public void ApdateState() { state = (state +  1) % (STATE_MAX + 1); }
-    public static int getMaxState() { return STATE_MAX; }
-    public boolean getIsDoneFlag(){ return isDoneFlag; }
-    public boolean IsEmpty() { return state == STATE_EMPTY; }
-    public int getTmpState() { return tmp_state; }
+    public float getRadius() {
+        return radius;
+    }
 
-    public void ResetState() {state = STATE_EMPTY; }
-    public void ResetTmpState() {tmp_state = STATE_EMPTY; }
+    public int getColor() {
+        return color;
+    }
+
+    public Boolean isExist() {
+        return m_isExist;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void ApdateState() {
+        state = (state + 1) % (STATE_MAX + 1);
+    }
+
+    public static int getMaxState() {
+        return STATE_MAX;
+    }
+
+    public boolean getIsDoneFlag() {
+        return isDoneFlag;
+    }
+
+    public boolean IsEmpty() {
+        return state == STATE_EMPTY;
+    }
+
+    public int getTmpState() {
+        return tmp_state;
+    }
+
+    public void ResetState() {
+        state = STATE_EMPTY;
+    }
+
+    public void ResetTmpState() {
+        tmp_state = STATE_EMPTY;
+    }
 
 
-    private void init(Context context){
+    private void init(Context context) {
         m_app = (ActivityMain) context;
         m_isExist = true;
         state = STATE_EMPTY;
         color = Color.RED;
         isDoneFlag = false;
-        tmp_state = STATE_EMPTY ;
+        tmp_state = STATE_EMPTY;
+        hammerState = false;
 
     }
+
     public Hexagon(Context context) {
         super(context);
         init(context);
@@ -91,8 +159,7 @@ public class Hexagon extends View{
         init(context);
     }
 
-    public void setParams (float x, float y, float radius)
-    {
+    public void setParams(float x, float y, float radius) {
         this.setX(x);
         this.setY(y);
         this.radius = radius;
@@ -100,33 +167,22 @@ public class Hexagon extends View{
     }
 
     //сейчас апроксимируется вписанной окружностью
-    public boolean isContain(float x, float y)
-    {
+    public boolean isContain(float x, float y) {
 
-        float tmp_x = x-getX();
-        float tmp_y = y-getY();
-        float rad_intersect = (float)(radius * Math.sqrt(3.0) / 2.0);
-        if(tmp_x * tmp_x  + tmp_y * tmp_y <  rad_intersect *  rad_intersect)
-        {
+        float tmp_x = x - getX();
+        float tmp_y = y - getY();
+        float rad_intersect = (float) (radius * Math.sqrt(3.0) / 2.0);
+        if (tmp_x * tmp_x + tmp_y * tmp_y < rad_intersect * rad_intersect) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
-    private void drawLikePath(Canvas canvas)
-    {
-        if(!isExist())
-        {
-            return;
-        }
+    private void drawLikePath(Canvas canvas) {
         int alpha;
-        if(tmp_state == STATE_EMPTY)
-        {
+        if (tmp_state == STATE_EMPTY) {
             color = colorForState[state];
             alpha = 0xFF;
-        }
-        else
-        {
+        } else {
             color = colorForState[tmp_state];
             alpha = tmp_alpha;
         }
@@ -159,11 +215,51 @@ public class Hexagon extends View{
         canvas.drawPath(path, paintGraftFill);
     }
 
-    
-    public void onDraw(Canvas canvas)
-    {
-        drawLikePath(canvas);
 
+
+
+    private void drawHammer(Canvas canvas) {
+        if (state == STATE_EMPTY)
+            return;
+        if (!hammerState)
+            return;
+
+        float rect_side = radius * (float) (Math.sqrt(3) / 2);
+        float left = this.getX() - rect_side / 2;
+        float top = this.getY() - rect_side / 2;
+        float right = this.getX() + rect_side / 2;
+        float bottom = this.getY() + rect_side / 2;
+        RectF dst = new RectF(left, top, right, bottom);
+        Bitmap bitmap = BitmapBank.getHammer();
+        Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        Paint paint = new Paint();
+        canvas.drawBitmap(bitmap, src, dst, paint);
+
+    }
+
+
+
+    private void drawLikeBitmap(Canvas canvas) {
+
+        Bitmap bitmap = BitmapBank.getBitmapForState(state);
+
+        float rect_side = radius ;
+        float left = this.getX() - rect_side * (float) (Math.sqrt(3) / 2) ;
+        float top = this.getY() - rect_side;
+        float right = this.getX() + rect_side * (float) (Math.sqrt(3) / 2);
+        float bottom = this.getY() + rect_side;
+        RectF dst = new RectF(left, top, right, bottom);
+        Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        Paint paint = new Paint();
+        canvas.drawBitmap(bitmap, src, dst, paint);
+    }
+    public void onDraw(Canvas canvas) {
+        if (!isExist()) {
+            return;
+        }
+        //drawLikeBitmap(canvas);
+        drawLikePath(canvas);
+        drawHammer(canvas);
     }
 
 }

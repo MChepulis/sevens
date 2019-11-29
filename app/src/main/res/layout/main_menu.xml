@@ -21,12 +21,44 @@
         android:background="@drawable/background_frame"
         android:padding="30dp"
         tools:layout_editor_absoluteX="-30dp"
-        tools:layout_editor_absoluteY="-250dp">
+        tools:layout_editor_absoluteY="-250dp"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_height="0px"
+            android:layout_weight="0.1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:orientation="horizontal"
+                android:layout_weight="0.4"
+                android:weightSum="1.0"
+                android:gravity="center_vertical">
+            <com.example.sevens.ViewSoundButton
+                android:id="@+id/main_menu_sound_btn"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="0.5">
+
+            </com.example.sevens.ViewSoundButton>
+
+            <com.example.sevens.ViewMusicButton
+                android:id="@+id/main_menu_music_btn"
+                android:layout_width="0px"
+                android:layout_margin="5dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5">
+            </com.example.sevens.ViewMusicButton>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="0.3"
             android:orientation="vertical">
 
             <TextView
@@ -44,7 +76,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0px"
             android:layout_weight="0.5"
             android:orientation="vertical">
 
@@ -71,13 +103,13 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/main_btn_toSettings"
+                    android:id="@+id/main_btn_toHelp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/btn_yellow_green_blue"
                     android:padding="10dp"
-                    android:text="@string/action_settings"
+                    android:text="@string/help"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -93,7 +125,7 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/btn_blue_darkblue_violet"
                     android:padding="10dp"
-                    android:text="@string/watch_logo"
+                    android:text="@string/authors"
                     android:textSize="20sp" />
             </LinearLayout>
 

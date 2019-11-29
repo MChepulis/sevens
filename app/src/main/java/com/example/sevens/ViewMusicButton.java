@@ -12,9 +12,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 public class ViewMusicButton extends AppCompatImageButton {
 
     public static final int RETURN_TOUCH_OFFSET = 5;
-
     private ActivityMain m_app;
-
     private boolean inside;
     private boolean isOn;
 
@@ -45,10 +43,10 @@ public class ViewMusicButton extends AppCompatImageButton {
 
     private void resetImage() {
         if (SettingsHandler.getMusicVolume() == 0) {
-            setImageResource(R.drawable.sound_off);
+            setImageResource(R.drawable.music_off);
             isOn = false;
         } else {
-            setImageResource(R.drawable.sound_on);
+            setImageResource(R.drawable.music_on);
             isOn = true;
         }
 

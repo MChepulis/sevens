@@ -30,7 +30,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 	public static final int VIEW_INTRO = 0;
 	public static final int VIEW_GAME = 1;
 	public static final int VIEW_MAIN_MENU = 2;
-	public static final int VIEW_SETTINGS = 3;
+	public static final int VIEW_HELP = 3;
 
 
 	// *************************************************
@@ -43,9 +43,10 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 	ViewIntro m_viewIntro;
 	ViewGame m_viewGame;
 	ViewMainMenu m_viewMainMenu;
-	ViewSettings m_viewSettings;
+	ViewHelp m_viewHelp;
 	SoundHandler soundBox;
 	SettingsHandler settings;
+	BitmapBank bitmapBank;
 
 	private long backPressedTime;
 	private long backDoublePressedInterval = 2000;
@@ -107,6 +108,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 
 		soundBox = new SoundHandler(this);
 		settings = new SettingsHandler(this);
+		bitmapBank = new BitmapBank(this);
 		System.out.println(soundBox);
 		setView(VIEW_INTRO);
 
@@ -139,12 +141,13 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 				m_viewMainMenu.start();
 				Log.d("THREE", "Switch to m_viewMainMenu");
 				break;
-			case VIEW_SETTINGS:
-				setContentView(R.layout.settings_menu);
-				m_viewSettings = new ViewSettings(this);
-				m_viewSettings.start();
-				Log.d("THREE", "Switch tom_viewSettings");
+			case VIEW_HELP:
+				setContentView(R.layout.activity_help);
+				m_viewHelp = new ViewHelp(this);
+				m_viewHelp.start();
+				Log.d("THREE", "Switch to m_viewHelp");
 				break;
+
 		}
 	}
 
@@ -184,11 +187,9 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			return m_viewGame.onTouch(x, y, touchType);
 		if (m_viewCur == VIEW_MAIN_MENU)
 			return m_viewMainMenu.onTouch(x, y, touchType);
-		if (m_viewCur == VIEW_SETTINGS)
-			return m_viewSettings.onTouch(x, y, touchType);
-		{
+		if (m_viewCur == VIEW_HELP)
+			return m_viewHelp.onTouch(x, y, touchType);
 
-		}
 		return true;
 	}
 
@@ -223,8 +224,8 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			case VIEW_MAIN_MENU:
 				m_viewMainMenu.resume();
 				break;
-			case VIEW_SETTINGS:
-				m_viewSettings.resume();
+			case VIEW_HELP:
+				m_viewHelp.resume();
 				break;
 		}
 		//Log.d("THREE", "App onResume");
@@ -245,8 +246,8 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			case VIEW_MAIN_MENU:
 				m_viewMainMenu.pause();
 				break;
-			case VIEW_SETTINGS:
-				m_viewSettings.pause();
+			case VIEW_HELP:
+				m_viewHelp.pause();
 				break;
 		}
 
@@ -314,8 +315,8 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			case VIEW_INTRO:
 				m_viewIntro.onBackPressed();
 				break;
-			case VIEW_SETTINGS:
-				m_viewSettings.onBackPressed();
+			case VIEW_HELP:
+				m_viewHelp.onBackPressed();
 				break;
 			default:
 				doubleclickToClose();

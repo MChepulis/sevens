@@ -1,25 +1,13 @@
 package com.example.sevens;
 
 
-import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 class MenuRefreshHandler extends Handler
 {
@@ -62,6 +50,8 @@ public class ViewMainMenu extends View {
     private int m_scrW, m_scrH;
     private int m_scrCenterX, m_scrCenterY;
     private ImageView background;
+    ViewSoundButton sound;
+    ViewMusicButton music;
 
 
     public ViewMainMenu(ActivityMain app)
@@ -77,6 +67,7 @@ public class ViewMainMenu extends View {
             @Override
             public void onClick(View v) {
                 System.out.println("StartPressed");
+                stop();
                 m_app.setView(ActivityMain.VIEW_GAME);
             }
         });
@@ -86,16 +77,34 @@ public class ViewMainMenu extends View {
             @Override
             public void onClick(View v) {
                 System.out.println("goto_Logo Pressed");
+                stop();
                 m_app.setView(ActivityMain.VIEW_INTRO);
             }
         });
 
-        Button goto_Settings = (Button) m_app.findViewById(R.id.main_btn_toSettings);
+        Button goto_Settings = (Button) m_app.findViewById(R.id.main_btn_toHelp);
         goto_Settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("goto_Settings Pressed");
-                m_app.setView(ActivityMain.VIEW_SETTINGS);
+                System.out.println("goto_help Pressed");
+                stop();
+                m_app.setView(ActivityMain.VIEW_HELP);
+            }
+        });
+
+        sound = m_app.findViewById(R.id.main_menu_sound_btn);
+        sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sound.onClick(v);
+            }
+        });
+
+        music = m_app.findViewById(R.id.main_menu_music_btn);
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                music.onClick(v);
             }
         });
 
@@ -107,24 +116,29 @@ public class ViewMainMenu extends View {
     {
         m_isActive 	= true;
         m_handler.start();
+        m_app.soundBox.playBackSound();
         //m_handler.sleep(UPDATE_TIME_MS);
     }
     public void stop()
     {
         m_isActive 	= false;
         m_handler.stop();
+        m_app.soundBox.pauseBackSound();
         //m_handler.sleep(UPDATE_TIME_MS);
     }
 
     public void pause()
     {
         m_isActive 	= false;
-        //m_handler.stop();
+        m_app.soundBox.pauseBackSound();
+        m_handler.stop();
     }
 
     public void resume()
     {
         m_isActive 	= true;
+        m_handler.start();
+        m_app.soundBox.resumeBackSound();
         //m_handler.sleep(UPDATE_TIME_MS);
     }
 
@@ -164,6 +178,7 @@ public class ViewMainMenu extends View {
     public void onBackPressed() {
         if(backPressedTime + backDoublePressedInterval > System.currentTimeMillis())
         {
+            stop();
             m_app.close();
             backToast.cancel();
             return;

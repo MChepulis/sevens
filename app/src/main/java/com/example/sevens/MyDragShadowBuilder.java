@@ -58,7 +58,7 @@ public class MyDragShadowBuilder extends View.DragShadowBuilder {
 
         // Sets the touch point's position to be in the middle of the drag shadow
 
-        System.out.println("offset_x " + offset_x + "offset_y " + offset_y);
+        //System.out.println("offset_x " + offset_x + "offset_y " + offset_y);
         touch.set((int) offset_x, (int) offset_y);
     }
 
@@ -67,7 +67,7 @@ public class MyDragShadowBuilder extends View.DragShadowBuilder {
     @Override
     public void onDrawShadow(Canvas canvas) {
         super.onDrawShadow(canvas);
-        System.out.println("onDrawShadow");
+        //System.out.println("onDrawShadow");
         // Draws the ColorDrawable in the Canvas passed in from the system.
         //shadow.
         //shadow.draw(canvas);

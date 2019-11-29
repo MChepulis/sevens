@@ -36,10 +36,105 @@
                 android:layout_width="0dp"
                 android:layout_margin="10dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.3"
+                android:layout_weight="0.15"
                 android:padding="10dp"
                 android:background="@drawable/btn_blue_darkblue_violet"
                 android:src="@android:drawable/ic_menu_revert" />
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="0.4"
+                android:weightSum="1.0"
+                android:gravity="center_vertical">
+
+                <com.example.sevens.ViewSoundButton
+                    android:id="@+id/game_sound_btn"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="0.5"></com.example.sevens.ViewSoundButton>
+
+                <com.example.sevens.ViewMusicButton
+                    android:id="@+id/game_music_btn"
+                    android:layout_width="0px"
+                    android:layout_margin="5dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5">
+                </com.example.sevens.ViewMusicButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.45"
+                android:weightSum="1.0"
+                android:gravity="center_vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0px"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.2"
+                    android:weightSum="1.0"
+                    android:gravity="center_vertical">
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/game_score_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0px"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.4"
+                    android:weightSum="1.0"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:gravity="right"
+                        android:text="@string/score"
+                        android:textColor="@color/Black"
+                        android:paddingRight="10dp"/>
+
+                    <TextView
+                        android:id="@+id/game_score_text"
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:text="200"
+                        android:gravity="left"
+                        android:textColor="@color/Black"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/game_high_score_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0px"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.4"
+                    android:weightSum="1.0"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:text="@string/high_score"
+                        android:gravity="right"
+                        android:textColor="@color/Black"
+                        android:paddingRight="10dp"/>
+
+                    <TextView
+                        android:id="@+id/game_high_score_text"
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:text="1000"
+                        android:gravity="left"
+                        android:textColor="@color/Black"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -98,7 +193,7 @@
 
             <ImageView
                 android:id="@+id/game_trash_bin"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:layout_weight="0.3"
                 android:layout_marginRight="5dp"
@@ -108,15 +203,26 @@
 
             <Button
                 android:id="@+id/game_staff_only"
-                android:layout_width="wrap_content"
+                android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
-                android:layout_weight="0.7"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.4"
                 android:background="@drawable/btn_yellow_green_blue"
                 android:padding="10dp"
                 android:text="@string/give_up"
                 android:textColor="@color/Black"
                 android:textSize="18sp" />
+
+            <com.example.sevens.ViewHammerButton
+                android:id="@+id/game_hammer"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:layout_marginLeft="5dp"
+                android:padding="10dp"
+                android:background="@drawable/btn_red_orange_yellow"
+                />
 
 
         </LinearLayout>
