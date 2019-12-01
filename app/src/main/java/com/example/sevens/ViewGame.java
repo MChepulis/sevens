@@ -295,7 +295,6 @@ public class ViewGame extends View {
 
 	}
 	private void generatePuzzle() {
-
 		puzzle.setVisibility(INVISIBLE);
 		isNeedGenerateNewPuzzle = false;
 		puzzle.clearTrimedArr();
@@ -438,12 +437,24 @@ public class ViewGame extends View {
 	private void prepareScreenValues(Canvas canvas) {
 	}
 
+	private void updateHammer() {
+		int quantity = getQuatityForPuzzle();
+		if (quantity <= 1) {
+			hammer.setEnabled(true);
+			hammer.setVisibility(VISIBLE);
+		} else {
+			hammer.setEnabled(false);
+			hammer.setVisibility(INVISIBLE);
+		}
+	}
+
 	private void close()
 	{
 		m_isActive = false;
 		stop();
 		m_app.setView(ActivityMain.VIEW_MAIN_MENU);
 	}
+
 	private void closeMessage() {
 		if (backPressedTime + backDoublePressedInterval > System.currentTimeMillis()) {
 			close();
@@ -486,6 +497,7 @@ public class ViewGame extends View {
 		puzzle.setEnabled(false);
 		back.setEnabled(false);
 		trash_bin.setEnabled(false);
+		hammer.setEnabled(false);
 		m_handler.stop();
 		m_app.soundBox.pauseBackSound();
 		SettingsHandler.setPuzzleStr(puzzle.getSavedString());
@@ -497,6 +509,7 @@ public class ViewGame extends View {
 		puzzle.setEnabled(true);
 		back.setEnabled(true);
 		trash_bin.setEnabled(true);
+		hammer.setEnabled(true);
 		m_handler.start();
 		m_app.soundBox.resumeBackSound();
 		hexGrid.setStateFromString(SettingsHandler.getHexGridStr());
@@ -533,6 +546,7 @@ public class ViewGame extends View {
 				//SettingsHandler.setPuzzleStr(puzzle.getSavedString());
 				//SettingsHandler.setHexGridStr(hexGrid.getSavedString());
 			}
+			updateHammer();
 			updateScore();
 			m_handler.sleep(UPDATE_TIME_MS);
 		}
