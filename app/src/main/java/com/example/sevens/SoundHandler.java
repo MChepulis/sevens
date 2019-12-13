@@ -49,7 +49,7 @@ public class SoundHandler {
 
         jumpSound = soundPool.load(context, R.raw.snd_bubble_bue, 1);
 
-        mediaPlayer = MediaPlayer.create(context, R.raw.bamboo);
+        mediaPlayer = MediaPlayer.create(context, R.raw.music);
         mediaPlayer.setLooping(true);
         isBackSoundPlaying = false;
 

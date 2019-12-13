@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#664F6B</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorMainBackGround">#232324</color>
-    <color name="colorFrame">#808080</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="whiteCC">#CCFFFFFF</color>
-    <color name="game_spacer">#CCFFFFFF</color>
+    <color name="colorMainBackGround">#aa232324</color>
     <color name="transparent">#00000000</color>
     <color name="Black">#FF000000</color>
     <color name="White">#FFFFFF</color>
@@ -18,5 +12,4 @@
     <color name="state_5">#FF64f5eb</color>
     <color name="state_6">#FF626cf0</color>
     <color name="state_7">#FFb062f0</color>
-
 </resources>

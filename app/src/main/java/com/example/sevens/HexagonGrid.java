@@ -358,13 +358,11 @@ public class HexagonGrid extends View {
         }
         for (int i = 0; i < m_rowNum; i++) {
             if (i % 2 == 0) {
-                int max = hor_long_count;
-                for (int j = 0; j < max; j++) {
+                for (int j = 0; j < hor_long_count; j++) {
                     m_hexagons.get(i).get(j).setParams(grid_zero_x + x_pos_long[j], grid_zero_y + y_pos.get(i), hex_rad);
                 }
             } else {
-                int max = hor_short_count;
-                for (int j = 0; j < max; j++) {
+                for (int j = 0; j < hor_short_count; j++) {
                     m_hexagons.get(i).get(j).setParams(grid_zero_x + x_pos_short[j], grid_zero_y + y_pos.get(i), hex_rad);
                 }
             }
@@ -816,7 +814,7 @@ public class HexagonGrid extends View {
     }
 
     public void resetHammerState() {
-        boolean hammerState = (hammer != null) ? hammer.getState() : false;
+        boolean hammerState = (hammer != null) && hammer.getState();
         for (int i = 0; i < m_hexagons.size(); i++) {
             for (int j = 0; j < m_hexagons.get(i).size(); j++) {
                 m_hexagons.get(i).get(j).setHammerState(hammerState);
@@ -896,7 +894,7 @@ public class HexagonGrid extends View {
                 exist_flag = cur_hex.isExist();
                 if( !result.equals("") )
                     result = result + "-";
-                result = result + "(" + Integer.toString(state) + ", " + Boolean.toString(exist_flag) + ")";
+                result = result + "(" + state + ", " + exist_flag + ")";
             }
         }
         result = result + "";

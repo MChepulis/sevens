@@ -80,7 +80,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 		m_screenW = point.x;
 		m_screenH = point.y;
 
-		Log.d("THREE", "Screen size is " + String.valueOf(m_screenW) + " * " + String.valueOf(m_screenH));
+		Log.d("THREE", "Screen size is " + m_screenW + " * " + m_screenH);
 
 		// Detect language
 		String strLang = Locale.getDefault().getDisplayLanguage();
@@ -201,8 +201,7 @@ public class ActivityMain extends Activity implements  OnCompletionListener, Vie
 			//		finish();
 			//return true;
 		}
-		boolean ret = super.onKeyDown(keyCode, evt);
-		return ret;
+		return super.onKeyDown(keyCode, evt);
 	}
 
 	public AppIntro getApp() {

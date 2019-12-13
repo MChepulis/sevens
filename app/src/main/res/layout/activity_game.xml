@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,11 +32,11 @@
             <ImageView
                 android:id="@+id/game_btn_back"
                 android:layout_width="0dp"
-                android:layout_margin="10dp"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 android:layout_weight="0.15"
-                android:padding="10dp"
                 android:background="@drawable/btn_blue_darkblue_violet"
+                android:padding="10dp"
                 android:src="@android:drawable/ic_menu_revert" />
             <LinearLayout
                 android:layout_width="0px"
@@ -48,20 +46,12 @@
                 android:weightSum="1.0"
                 android:gravity="center_vertical">
 
-                <com.example.sevens.ViewSoundButton
-                    android:id="@+id/game_sound_btn"
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0.5"></com.example.sevens.ViewSoundButton>
-
                 <com.example.sevens.ViewMusicButton
                     android:id="@+id/game_music_btn"
                     android:layout_width="0px"
                     android:layout_margin="5dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5">
-                </com.example.sevens.ViewMusicButton>
+                    android:layout_weight="0.5" />
             </LinearLayout>
 
             <LinearLayout
@@ -93,18 +83,23 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
                         android:gravity="right"
+                        android:paddingRight="10dp"
                         android:text="@string/score"
+                        android:textAllCaps="true"
                         android:textColor="@color/Black"
-                        android:paddingRight="10dp"/>
+                        android:textSize="@dimen/progress_text_size"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/game_score_text"
                         android:layout_width="0px"
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
-                        android:text="200"
                         android:gravity="left"
-                        android:textColor="@color/Black"/>
+                        android:text="200"
+                        android:textColor="@color/Black"
+                        android:textSize="@dimen/progress_text_size"
+                        android:textStyle="bold" />
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/game_high_score_layout"
@@ -114,23 +109,29 @@
                     android:layout_weight="0.4"
                     android:weightSum="1.0"
                     android:gravity="center_vertical">
+
                     <TextView
                         android:layout_width="0px"
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
-                        android:text="@string/high_score"
                         android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:text="@string/high_score"
+                        android:textAllCaps="true"
                         android:textColor="@color/Black"
-                        android:paddingRight="10dp"/>
+                        android:textSize="@dimen/progress_text_size"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/game_high_score_text"
                         android:layout_width="0px"
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
-                        android:text="1000"
                         android:gravity="left"
-                        android:textColor="@color/Black"/>
+                        android:text="1000"
+                        android:textColor="@color/Black"
+                        android:textSize="@dimen/progress_text_size"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
 
@@ -182,23 +183,24 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/game_bot2_layout"
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:layout_weight="1.825"
             android:gravity="center"
-            android:padding="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="5dp">
 
             <ImageView
                 android:id="@+id/game_trash_bin"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
-                android:layout_weight="0.3"
                 android:layout_marginRight="5dp"
-                android:padding="10dp"
+                android:layout_weight="0.2"
                 android:background="@drawable/btn_red_orange_yellow"
+                android:padding="10dp"
                 android:src="@android:drawable/ic_menu_delete" />
 
             <Button
@@ -207,22 +209,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.6"
                 android:background="@drawable/btn_yellow_green_blue"
                 android:padding="10dp"
                 android:text="@string/give_up"
                 android:textColor="@color/Black"
-                android:textSize="18sp" />
+                android:textSize="@dimen/button_text_size" />
 
             <com.example.sevens.ViewHammerButton
                 android:id="@+id/game_hammer"
                 android:layout_width="0px"
                 android:layout_height="match_parent"
-                android:layout_weight="0.3"
                 android:layout_marginLeft="5dp"
-                android:padding="10dp"
+                android:layout_weight="0.2"
                 android:background="@drawable/btn_red_orange_yellow"
-                />
+                android:padding="10dp" />
 
 
         </LinearLayout>
@@ -256,7 +257,7 @@
                 android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:layout_weight="0.15"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"/>
 
             <LinearLayout
                 android:id="@+id/game_over_message_layout"
@@ -284,7 +285,7 @@
                         android:gravity="center"
                         android:text="@string/game_over"
                         android:textColor="@color/White"
-                        android:textSize="25sp"></TextView>
+                        android:textSize="@dimen/title_size" />
 
                 </LinearLayout>
 
@@ -303,7 +304,7 @@
                         android:background="@drawable/btn_yellow_green_blue"
                         android:padding="10dp"
                         android:text="@string/str_restart"
-                        android:textSize="20sp"></Button>
+                        android:textSize="@dimen/button_text_size"/>
 
                     <Button
                         android:id="@+id/game_over_btn_main_menu"
@@ -313,7 +314,7 @@
                         android:background="@drawable/btn_blue_darkblue_violet"
                         android:padding="10dp"
                         android:text="@string/main_menu"
-                        android:textSize="20sp"></Button>
+                        android:textSize="@dimen/button_text_size"/>
                 </LinearLayout>
 
 
@@ -324,7 +325,7 @@
                 android:layout_width="0px"
                 android:layout_height="match_parent"
                 android:layout_weight="0.15"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"/>
         </LinearLayout>
 
 

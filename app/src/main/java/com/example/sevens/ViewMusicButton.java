@@ -37,7 +37,8 @@ public class ViewMusicButton extends AppCompatImageButton {
     private void init(@Nullable AttributeSet set) {
         resetImage();
         setBackgroundResource(R.drawable.sound_on);
-        setScaleType(ScaleType.CENTER_INSIDE);
+//        setScaleType(ScaleType.CENTER_INSIDE);
+        setScaleType(ScaleType.FIT_END);
         setBackgroundColor(0);
     }
 

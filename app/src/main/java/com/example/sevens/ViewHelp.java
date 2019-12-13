@@ -1,11 +1,14 @@
 package com.example.sevens;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +38,7 @@ class HelpRefreshHandler extends Handler
     public void stop() {
         this.removeMessages(0);
     }
-};
+}
 
 public class ViewHelp extends View {
 
@@ -68,6 +71,11 @@ public class ViewHelp extends View {
         backButton = m_app.findViewById(R.id.help_back_button);
         title = m_app.findViewById(R.id.help_title);
         help = m_app.findViewById(R.id.help_view);
+        final WebSettings webSettings = help.getSettings();
+        Resources res = getResources();
+        float fontSize = res.getDimension(R.dimen.txt_help_size);
+        webSettings.setDefaultFontSize((int)fontSize);
+        help.setBackgroundColor(Color.TRANSPARENT);
         help.loadUrl(m_app.getString(R.string.help_info));
         //help = m_app.findViewById(R.id.help_text);
 
@@ -129,8 +137,7 @@ public class ViewHelp extends View {
 
     public boolean performClick()
     {
-        boolean b = super.performClick();
-        return b;
+        return super.performClick();
     }
 
     public void onDraw(Canvas canvas)  /// нужно ли оно сейчас?

@@ -265,15 +265,9 @@ public class AppIntro
   {
     ConnectivityManager cm = (ConnectivityManager)m_ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
     // test for connection
-    if (cm.getActiveNetworkInfo() != null
-        && cm.getActiveNetworkInfo().isAvailable()
-        && cm.getActiveNetworkInfo().isConnected())
-    {
-      return true;
-    } else
-    {
-      return false;
-    }
+    return cm.getActiveNetworkInfo() != null
+            && cm.getActiveNetworkInfo().isAvailable()
+            && cm.getActiveNetworkInfo().isConnected();
   }
 
 
@@ -330,7 +324,7 @@ public class AppIntro
 
     RectF   rectInside = new RectF( rect.left + rectBord, rect.top + rectBord, rect.right - rectBord, rect.bottom - rectBord);
 
-    int colors[] = { 0, 0 };
+    int[] colors = {0, 0};
     colors[0] = color1 | (alpha << 24);
     colors[1] = color2 | (alpha << 24);
     LinearGradient shader = new LinearGradient(rect.left, rect.top, rect.left, rect.bottom, colors, null, Shader.TileMode.CLAMP);
@@ -485,7 +479,7 @@ public class AppIntro
     m_pathAppleOutline.close();
     m_paintGreenFill.setAlpha(opa);
 
-    int colors[] = new int[2];
+    int[] colors = new int[2];
     float	xSpot, ySpot, radGrad;
 
     int r = (int)(0x20 * (1.0f - rAnim) + 0xAA * rAnim);
@@ -563,8 +557,7 @@ public class AppIntro
     m_pathAppleGraft.close();
 
 
-
-    int colors[] = new int[2];
+    int[] colors = new int[2];
     float	xSpot, ySpot, radGrad;
 
     colors[0] = 0xFFAAFFAA;
@@ -663,7 +656,7 @@ public class AppIntro
 
 
     // internal green filler as radial gradient
-    int colors[] = new int[2];
+    int[] colors = new int[2];
     float	xSpot, ySpot, radGrad;
 
     colors[0] = 0xFFAAFFAA;

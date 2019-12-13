@@ -68,12 +68,8 @@ public class  HexGridDragDropDragListener implements View.OnDragListener {
 
             ClipDescription clipDescription = dragEvent.getClipDescription();
 
-            if (clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN)) {
-
-                // Return true because the target view can accept the dragged object.
-                return true;
-
-            }
+            // Return true because the target view can accept the dragged object.
+            return clipDescription.hasMimeType(ClipDescription.MIMETYPE_TEXT_PLAIN);
         } else if (dragAction == dragEvent.ACTION_DRAG_ENTERED) {
             // When the being dragged view enter the target view, change the target view background color.
             //System.out.println("dragEvent.ACTION_DRAG_ENTERED");

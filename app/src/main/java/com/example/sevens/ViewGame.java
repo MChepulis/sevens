@@ -64,7 +64,7 @@ class GameRefreshHandler extends Handler
 	}
 
 
-};
+}
 
 public class ViewGame extends View {
 	private static final int UPDATE_TIME_MS = 30;
@@ -95,8 +95,7 @@ public class ViewGame extends View {
 	ImageView back;
 	ImageView trash_bin;
 	ViewHammerButton hammer;
-	ImageView background;
-	ViewSoundButton sound;
+//	ViewSoundButton sound;
 	ViewMusicButton music;
 
 	HexagonGrid hexGrid;
@@ -136,15 +135,15 @@ public class ViewGame extends View {
 		back = (ImageView) m_app.findViewById(R.id.game_btn_back);
 		score_text = m_app.findViewById(R.id.game_score_text);
 		high_score_text = m_app.findViewById(R.id.game_high_score_text);
-		sound = m_app.findViewById(R.id.game_sound_btn);
+//		sound = m_app.findViewById(R.id.game_sound_btn);
 		music = m_app.findViewById(R.id.game_music_btn);
 
-		sound.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				sound.onClick(v);
-			}
-		});
+//		sound.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				sound.onClick(v);
+//			}
+//		});
 
 		music.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -277,8 +276,7 @@ public class ViewGame extends View {
 	private int getNewAmount(int maxAmount)
 	{
 		Random rand = new Random();
-		int result = rand.nextInt(maxAmount);
-		return result;
+		return rand.nextInt(maxAmount);
 	}
 
 
@@ -405,8 +403,7 @@ public class ViewGame extends View {
 	}
 
 	public boolean performClick() {
-		boolean b = super.performClick();
-		return b;
+		return super.performClick();
 	}
 
 	public void onPause() {

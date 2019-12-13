@@ -64,7 +64,7 @@ public class BackgroundMusic extends AsyncTask<Void, Void, Void>
     {
     	if (m_player == null)
     	{
-    		m_player = MediaPlayer.create(m_activity, R.raw.bamboo);
+    		m_player = MediaPlayer.create(m_activity, R.raw.music);
     		m_player.setLooping(true); // Set looping 
     		m_player.setVolume(100,100);
     		start();
