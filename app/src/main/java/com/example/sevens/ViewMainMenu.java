@@ -92,13 +92,13 @@ public class ViewMainMenu extends View {
             }
         });
 
-        sound = m_app.findViewById(R.id.main_menu_sound_btn);
-        sound.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sound.onClick(v);
-            }
-        });
+//        sound = m_app.findViewById(R.id.main_menu_sound_btn);
+//        sound.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sound.onClick(v);
+//            }
+//        });
 
         music = m_app.findViewById(R.id.main_menu_music_btn);
         music.setOnClickListener(new View.OnClickListener() {
@@ -161,8 +161,7 @@ public class ViewMainMenu extends View {
 
     public boolean performClick()
     {
-        boolean b = super.performClick();
-        return b;
+        return super.performClick();
     }
 
     public Boolean flag = true;

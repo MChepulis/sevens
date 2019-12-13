@@ -41,7 +41,7 @@ class RedrawHandler extends Handler
 		this.sendEmptyMessage(0);
 	}
 
-};
+}
 
 public class ViewIntro extends View 
 {
@@ -74,8 +74,7 @@ public class ViewIntro extends View
 	public boolean performClick()
 	{
 		System.out.println("ViewIntro performClick");
-		boolean b = super.performClick();
-		return b;
+		return super.performClick();
 	}
 	
 	public void start()

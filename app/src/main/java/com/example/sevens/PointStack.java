@@ -10,8 +10,8 @@ public class PointStack
 	// **********************************************************
 	// Data
 	// **********************************************************
-	
-	private 	V2d		m_stack[];
+
+	private V2d[] m_stack;
 	private 	int		m_stackLen;
 	
 	
@@ -58,8 +58,7 @@ public class PointStack
 		if (m_stackLen <= 0)
 			return null;
 		m_stackLen --;
-		V2d vRes = m_stack[m_stackLen];
-		return vRes;
+		return m_stack[m_stackLen];
 	}
 	
 	

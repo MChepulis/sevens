@@ -64,7 +64,7 @@ class GameRefreshHandler extends Handler
 	}
 
 
-};
+}
 
 public class ViewGame extends View {
 	private static final int UPDATE_TIME_MS = 30;
@@ -95,8 +95,7 @@ public class ViewGame extends View {
 	ImageView back;
 	ImageView trash_bin;
 	ViewHammerButton hammer;
-	ImageView background;
-	ViewSoundButton sound;
+//	ViewSoundButton sound;
 	ViewMusicButton music;
 
 	HexagonGrid hexGrid;
@@ -136,15 +135,15 @@ public class ViewGame extends View {
 		back = (ImageView) m_app.findViewById(R.id.game_btn_back);
 		score_text = m_app.findViewById(R.id.game_score_text);
 		high_score_text = m_app.findViewById(R.id.game_high_score_text);
-		sound = m_app.findViewById(R.id.game_sound_btn);
+//		sound = m_app.findViewById(R.id.game_sound_btn);
 		music = m_app.findViewById(R.id.game_music_btn);
 
-		sound.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				sound.onClick(v);
-			}
-		});
+//		sound.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				sound.onClick(v);
+//			}
+//		});
 
 		music.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -277,8 +276,7 @@ public class ViewGame extends View {
 	private int getNewAmount(int maxAmount)
 	{
 		Random rand = new Random();
-		int result = rand.nextInt(maxAmount);
-		return result;
+		return rand.nextInt(maxAmount);
 	}
 
 
@@ -295,7 +293,6 @@ public class ViewGame extends View {
 
 	}
 	private void generatePuzzle() {
-
 		puzzle.setVisibility(INVISIBLE);
 		isNeedGenerateNewPuzzle = false;
 		puzzle.clearTrimedArr();
@@ -406,8 +403,7 @@ public class ViewGame extends View {
 	}
 
 	public boolean performClick() {
-		boolean b = super.performClick();
-		return b;
+		return super.performClick();
 	}
 
 	public void onPause() {
@@ -438,12 +434,24 @@ public class ViewGame extends View {
 	private void prepareScreenValues(Canvas canvas) {
 	}
 
+	private void updateHammer() {
+		int quantity = getQuatityForPuzzle();
+		if (quantity <= 1) {
+			hammer.setEnabled(true);
+			hammer.setVisibility(VISIBLE);
+		} else {
+			hammer.setEnabled(false);
+			hammer.setVisibility(INVISIBLE);
+		}
+	}
+
 	private void close()
 	{
 		m_isActive = false;
 		stop();
 		m_app.setView(ActivityMain.VIEW_MAIN_MENU);
 	}
+
 	private void closeMessage() {
 		if (backPressedTime + backDoublePressedInterval > System.currentTimeMillis()) {
 			close();
@@ -486,6 +494,7 @@ public class ViewGame extends View {
 		puzzle.setEnabled(false);
 		back.setEnabled(false);
 		trash_bin.setEnabled(false);
+		hammer.setEnabled(false);
 		m_handler.stop();
 		m_app.soundBox.pauseBackSound();
 		SettingsHandler.setPuzzleStr(puzzle.getSavedString());
@@ -497,6 +506,7 @@ public class ViewGame extends View {
 		puzzle.setEnabled(true);
 		back.setEnabled(true);
 		trash_bin.setEnabled(true);
+		hammer.setEnabled(true);
 		m_handler.start();
 		m_app.soundBox.resumeBackSound();
 		hexGrid.setStateFromString(SettingsHandler.getHexGridStr());
@@ -533,6 +543,7 @@ public class ViewGame extends View {
 				//SettingsHandler.setPuzzleStr(puzzle.getSavedString());
 				//SettingsHandler.setHexGridStr(hexGrid.getSavedString());
 			}
+			updateHammer();
 			updateScore();
 			m_handler.sleep(UPDATE_TIME_MS);
 		}
